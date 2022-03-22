@@ -7,9 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B2BEA6C27EA078000225B12 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2BEA6B27EA078000225B12 /* Coordinator.swift */; };
+		4B2BEA6E27EA081E00225B12 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2BEA6D27EA081E00225B12 /* HomeCoordinator.swift */; };
+		4B2BEA7127EA089900225B12 /* Modules in Frameworks */ = {isa = PBXBuildFile; productRef = 4B2BEA7027EA089900225B12 /* Modules */; };
+		4B2BEA7327EA089B00225B12 /* Form in Frameworks */ = {isa = PBXBuildFile; productRef = 4B2BEA7227EA089B00225B12 /* Form */; };
+		4B2BEA7727EA095C00225B12 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2BEA7627EA095C00225B12 /* AppCoordinator.swift */; };
+		4B2BEA7B27EA0B9400225B12 /* FavoritesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2BEA7A27EA0B9400225B12 /* FavoritesCoordinator.swift */; };
+		4B2BEA7D27EA0C2300225B12 /* AppContributorsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2BEA7C27EA0C2300225B12 /* AppContributorsCoordinator.swift */; };
 		4B5B7D5C27E964AF009CF38D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5B7D5B27E964AF009CF38D /* AppDelegate.swift */; };
 		4B5B7D5E27E964AF009CF38D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5B7D5D27E964AF009CF38D /* SceneDelegate.swift */; };
-		4B5B7D6027E964AF009CF38D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5B7D5F27E964AF009CF38D /* ViewController.swift */; };
 		4B5B7D6627E964AF009CF38D /* StarRepo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4B5B7D6427E964AF009CF38D /* StarRepo.xcdatamodeld */; };
 		4B5B7D6827E964B1009CF38D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B5B7D6727E964B1009CF38D /* Assets.xcassets */; };
 		4B5B7D6B27E964B1009CF38D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B5B7D6927E964B1009CF38D /* LaunchScreen.storyboard */; };
@@ -36,10 +42,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4B2BEA6B27EA078000225B12 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		4B2BEA6D27EA081E00225B12 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		4B2BEA7627EA095C00225B12 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		4B2BEA7A27EA0B9400225B12 /* FavoritesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesCoordinator.swift; sourceTree = "<group>"; };
+		4B2BEA7C27EA0C2300225B12 /* AppContributorsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContributorsCoordinator.swift; sourceTree = "<group>"; };
 		4B5B7D5827E964AF009CF38D /* StarRepo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StarRepo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B5B7D5B27E964AF009CF38D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4B5B7D5D27E964AF009CF38D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		4B5B7D5F27E964AF009CF38D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4B5B7D6527E964AF009CF38D /* StarRepo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StarRepo.xcdatamodel; sourceTree = "<group>"; };
 		4B5B7D6727E964B1009CF38D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B5B7D6A27E964B1009CF38D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -58,6 +68,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B2BEA7327EA089B00225B12 /* Form in Frameworks */,
+				4B2BEA7127EA089900225B12 /* Modules in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +90,53 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4B2BEA6A27EA077400225B12 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				4B2BEA6B27EA078000225B12 /* Coordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		4B2BEA6F27EA089900225B12 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4B2BEA7427EA093900225B12 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				4B2BEA6D27EA081E00225B12 /* HomeCoordinator.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		4B2BEA7527EA094F00225B12 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				4B2BEA7627EA095C00225B12 /* AppCoordinator.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		4B2BEA7827EA0B6A00225B12 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				4B2BEA7A27EA0B9400225B12 /* FavoritesCoordinator.swift */,
+			);
+			path = Favorites;
+			sourceTree = "<group>";
+		};
+		4B2BEA7927EA0B7300225B12 /* AppContributors */ = {
+			isa = PBXGroup;
+			children = (
+				4B2BEA7C27EA0C2300225B12 /* AppContributorsCoordinator.swift */,
+			);
+			path = AppContributors;
+			sourceTree = "<group>";
+		};
 		4B5B7D4F27E964AF009CF38D = {
 			isa = PBXGroup;
 			children = (
@@ -87,6 +146,7 @@
 				4B5B7D7427E964B1009CF38D /* StarRepoTests */,
 				4B5B7D7E27E964B1009CF38D /* StarRepoUITests */,
 				4B5B7D5927E964AF009CF38D /* Products */,
+				4B2BEA6F27EA089900225B12 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,7 +165,11 @@
 			children = (
 				4B5B7D5B27E964AF009CF38D /* AppDelegate.swift */,
 				4B5B7D5D27E964AF009CF38D /* SceneDelegate.swift */,
-				4B5B7D5F27E964AF009CF38D /* ViewController.swift */,
+				4B2BEA6A27EA077400225B12 /* Coordinator */,
+				4B2BEA7527EA094F00225B12 /* App */,
+				4B2BEA7427EA093900225B12 /* Home */,
+				4B2BEA7827EA0B6A00225B12 /* Favorites */,
+				4B2BEA7927EA0B7300225B12 /* AppContributors */,
 				4B5B7D6727E964B1009CF38D /* Assets.xcassets */,
 				4B5B7D6927E964B1009CF38D /* LaunchScreen.storyboard */,
 				4B5B7D6C27E964B1009CF38D /* Info.plist */,
@@ -147,6 +211,10 @@
 			dependencies = (
 			);
 			name = StarRepo;
+			packageProductDependencies = (
+				4B2BEA7027EA089900225B12 /* Modules */,
+				4B2BEA7227EA089B00225B12 /* Form */,
+			);
 			productName = StarRepo;
 			productReference = 4B5B7D5827E964AF009CF38D /* StarRepo.app */;
 			productType = "com.apple.product-type.application";
@@ -261,10 +329,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B5B7D6027E964AF009CF38D /* ViewController.swift in Sources */,
+				4B2BEA7727EA095C00225B12 /* AppCoordinator.swift in Sources */,
+				4B2BEA7B27EA0B9400225B12 /* FavoritesCoordinator.swift in Sources */,
 				4B5B7D6627E964AF009CF38D /* StarRepo.xcdatamodeld in Sources */,
+				4B2BEA6C27EA078000225B12 /* Coordinator.swift in Sources */,
+				4B2BEA7D27EA0C2300225B12 /* AppContributorsCoordinator.swift in Sources */,
 				4B5B7D5C27E964AF009CF38D /* AppDelegate.swift in Sources */,
 				4B5B7D5E27E964AF009CF38D /* SceneDelegate.swift in Sources */,
+				4B2BEA6E27EA081E00225B12 /* HomeCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -600,6 +672,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4B2BEA7027EA089900225B12 /* Modules */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Modules;
+		};
+		4B2BEA7227EA089B00225B12 /* Form */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Form;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		4B5B7D6427E964AF009CF38D /* StarRepo.xcdatamodeld */ = {
