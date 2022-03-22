@@ -1,8 +1,8 @@
 import UIKit
 
-class TextRowTableViewCell: FormRowTableViewCell<TextRow> {
+class ButtonRowTableViewCell: FormRowTableViewCell<ButtonRow> {
 
-    static let identifier = "TextRowTableViewCell"
+    static let identifier = "ButtonRowTableViewCell"
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -28,13 +28,13 @@ class TextRowTableViewCell: FormRowTableViewCell<TextRow> {
         contentStackView.addArrangedSubview(titleLabel)
     }
     
-    override func configure(with model: TextRow) {
+    override func configure(with model: ButtonRow) {
         super.configure(with: model)
         
         titleLabel.font = model.configuration.textFont
-        titleLabel.textColor = model.configuration.textColor
+        titleLabel.textColor = model.configuration.tintColor
         
-        titleLabel.text = model.text
+        titleLabel.text = model.title
     }
 
 }

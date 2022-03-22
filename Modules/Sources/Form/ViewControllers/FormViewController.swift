@@ -50,6 +50,7 @@ public class FormViewController: UIViewController {
     private func registerCells() {
         
         tableView.register(TextRowTableViewCell.self, forCellReuseIdentifier: TextRowTableViewCell.identifier)
+        tableView.register(ButtonRowTableViewCell.self, forCellReuseIdentifier: ButtonRowTableViewCell.identifier)
         
     }
     
@@ -93,6 +94,14 @@ extension FormViewController: UITableViewDataSource, UITableViewDelegate {
             cell.configure(with: formRow as! TextRow)
             
             return cell
+        case let formRow where formRow is ButtonRow:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ButtonRowTableViewCell.identifier, for: indexPath) as? ButtonRowTableViewCell else {
+                return UITableViewCell()
+            }
+            
+            cell.configure(with: formRow as! ButtonRow)
+            
+            return cell
         default:
             return UITableViewCell()
         }
@@ -134,6 +143,15 @@ struct HomeViewControllerPreviews: PreviewProvider {
                             TextRow(
                                 image: .init(systemName: ""),
                                 text: "Test"
+                            )
+                        ]
+                    ),
+                    FormSection(
+                        title: "Actions",
+                        rows: [
+                            ButtonRow(
+                                image: .init(systemName: "link"),
+                                title: "Go To"
                             )
                         ]
                     )
