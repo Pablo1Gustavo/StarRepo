@@ -49,6 +49,7 @@ public class FormViewController: UIViewController {
     
     private func registerCells() {
         
+        tableView.register(TitleDescriptionRowTableViewCell.self, forCellReuseIdentifier: TitleDescriptionRowTableViewCell.identifier)
         tableView.register(TextRowTableViewCell.self, forCellReuseIdentifier: TextRowTableViewCell.identifier)
         tableView.register(ButtonRowTableViewCell.self, forCellReuseIdentifier: ButtonRowTableViewCell.identifier)
         
@@ -86,6 +87,14 @@ extension FormViewController: UITableViewDataSource, UITableViewDelegate {
         let row = viewModel.sections[indexPath.section].rows[indexPath.row]
         
         switch row.self {
+        case let formRow where formRow is TitleDescriptionRow:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleDescriptionRowTableViewCell.identifier, for: indexPath) as? TitleDescriptionRowTableViewCell else {
+                return UITableViewCell()
+            }
+            
+            cell.configure(with: formRow as! TitleDescriptionRow)
+            
+            return cell
         case let formRow where formRow is TextRow:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TextRowTableViewCell.identifier, for: indexPath) as? TextRowTableViewCell else {
                 return UITableViewCell()
@@ -152,6 +161,28 @@ struct HomeViewControllerPreviews: PreviewProvider {
                             ButtonRow(
                                 image: .init(systemName: "link"),
                                 title: "Go To"
+                            )
+                        ]
+                    ),
+                    FormSection(
+                        title: "Title Description",
+                        rows: [
+                            TitleDescriptionRow(
+                                image: .init(systemName: "globe"),
+                                title: "Title",
+                                description: "Description"
+                            ),
+                            TitleDescriptionRow(
+                                title: "Title",
+                                description: "Description"
+                            ),
+                            TitleDescriptionRow(
+                                title: "Title",
+                                description: "Description",
+                                configurationHandler: { config in
+                                    config.titleTextColor = .systemGreen
+                                    config.descriptionTextColor = .systemBrown
+                                }
                             )
                         ]
                     )
