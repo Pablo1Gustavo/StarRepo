@@ -1,11 +1,5 @@
-//
-//  SceneDelegate.swift
-//  StarRepo
-//
-//  Created by SP12442 on 21/03/22.
-//
-
 import UIKit
+import Form
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -13,9 +7,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+        
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
@@ -25,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let appCoordinator = AppCoordinator(rootViewController: tabBarController)
         appCoordinator.start()
         
-        window?.rootViewController = appCoordinator.rootViewController
+        window?.rootViewController = FormViewController()
         
         window?.makeKeyAndVisible()
         

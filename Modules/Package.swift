@@ -31,7 +31,7 @@ let package = Package(
             dependencies: []),
         .target(
             name: "Form",
-            dependencies: []),
+            dependencies: ["FavoritesData", "Core"]),
         .testTarget(
             name: "FormTests",
             dependencies: ["Form"]),
@@ -49,6 +49,6 @@ let package = Package(
             dependencies: ["Favorites"]),
         .target(
             name: "FavoritesData",
-            dependencies: []),
+            dependencies: ["Core"]),
     ]
 )
