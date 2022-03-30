@@ -6,6 +6,10 @@ public class FavoritesListViewController: UIViewController {
 
     private var viewModel: FavoritesListViewModel
     
+    var favRepoList: [FavRepo] = []
+        
+    var persistence = Persistence()
+    
     // MARK: - Initializers
     
     public init(viewModel: FavoritesListViewModel) {
@@ -23,6 +27,8 @@ public class FavoritesListViewController: UIViewController {
         super.viewDidLoad()
         
         configureNavigationBar()
+        
+        view.backgroundColor = .systemBackground
     }
     
     // MARK: - Private methods

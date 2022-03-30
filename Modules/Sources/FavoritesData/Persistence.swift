@@ -14,7 +14,7 @@ protocol AddFavoriteRepoProtocol {
 
 ///Protocol for deleting data from FavoritesRepos
 protocol DeleteFavoriteRepoProtocol {
-    func deleteFavoriteRepo(uuid: String)
+    func deleteFavoriteRepo(uuid: UUID)
 }
 
 public class Persistence: ObservableObject {
@@ -82,7 +82,7 @@ extension Persistence: AddFavoriteRepoProtocol {
 }
 
 extension Persistence: DeleteFavoriteRepoProtocol {
-    func deleteFavoriteRepo(uuid: String) {
+    public func deleteFavoriteRepo(uuid: UUID) {
         let context = container.viewContext
         
         let predicate = NSPredicate(format: "id == %@", "\(uuid)")
