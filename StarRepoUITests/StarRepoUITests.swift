@@ -1,10 +1,3 @@
-//
-//  StarRepoUITests.swift
-//  StarRepoUITests
-//
-//  Created by SP12442 on 21/03/22.
-//
-
 import XCTest
 
 class StarRepoUITests: XCTestCase {
