@@ -22,17 +22,17 @@ public class Persistence: ObservableObject {
     //setting up CoreDataContainer
     let container: NSPersistentContainer
     
-    public init() {
-        container = NSPersistentContainer(name: "FavoritesRepos")
-        
-        //loading the data from CoreData Container
-        container.loadPersistentStores { (description, error) in
-            if let error = error {
-                //will print if the name is incorrect
-                print("Error loading Core Data: \(error)")
+    public init(inMemory: Bool = false) {
+        let managedObjectModel = NSManagedObjectModel(contentsOf: Bundle.module.url(forResource: "FavoritesRepos", withExtension: "momd")!)
+        container = NSPersistentContainer(name: "FavoritesRepos", managedObjectModel: managedObjectModel!)
+        if inMemory {
+            container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
+        }
+        container.loadPersistentStores { storeDescription, error in
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         }
-        //fetchFavoriteRepos()
     }
     
 }

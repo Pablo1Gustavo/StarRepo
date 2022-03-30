@@ -1,10 +1,14 @@
 import UIKit
+import FavoritesData
+import Core
 
 public class FavoritesListViewController: UIViewController {
 
+    private var viewModel: FavoritesListViewModel
+    
     // MARK: - Initializers
     
-    public init(viewModel: HomeViewModel) {
+    public init(viewModel: FavoritesListViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }

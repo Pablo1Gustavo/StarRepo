@@ -1,5 +1,6 @@
 import UIKit
 import Form
+import FavoritesData
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -17,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let appCoordinator = AppCoordinator(rootViewController: tabBarController)
         appCoordinator.start()
         
-        window?.rootViewController = FormViewController()
+        window?.rootViewController = appCoordinator.rootViewController
         
         window?.makeKeyAndVisible()
         
@@ -51,7 +52,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
 
         // Save changes in the application's managed object context when the application transitions to the background.
-        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+//        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
 
 

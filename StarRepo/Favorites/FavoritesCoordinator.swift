@@ -1,4 +1,5 @@
 import UIKit
+import Favorites
 
 final class FavoritesCoordinator: Coordinator {
     
@@ -12,8 +13,11 @@ final class FavoritesCoordinator: Coordinator {
     }
     
     func start() {
-        let viewController = UIViewController()
-        viewController.view.backgroundColor = .systemGray3
+        let viewModel = FavoritesListViewModel()
+        
+        let viewController = FavoritesListViewController(
+            viewModel: viewModel
+        )
         
         rootViewController.setViewControllers([viewController], animated: false)
     }

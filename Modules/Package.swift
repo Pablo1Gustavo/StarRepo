@@ -16,7 +16,8 @@ let package = Package(
         .library(
             name: "Modules",
             targets: [
-                "Home"
+                "Home",
+                "Favorites"
             ]),
     ],
     dependencies: [
@@ -31,7 +32,7 @@ let package = Package(
             dependencies: []),
         .target(
             name: "Form",
-            dependencies: ["FavoritesData", "Core"]),
+            dependencies: ["Core"]),
         .testTarget(
             name: "FormTests",
             dependencies: ["Form"]),
@@ -43,12 +44,16 @@ let package = Package(
             dependencies: ["Home"]),
         .target(
             name: "Favorites",
-            dependencies: []),
+            dependencies: ["FavoritesData"]),
         .testTarget(
             name: "FavoritesTests",
             dependencies: ["Favorites"]),
         .target(
             name: "FavoritesData",
-            dependencies: ["Core"]),
+            dependencies: ["Core"],
+            resources: [
+                .copy("FavoritesRepos.xcdatamodeld")
+            ]
+        ),
     ]
 )

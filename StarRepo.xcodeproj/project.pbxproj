@@ -16,7 +16,6 @@
 		4B2BEA7D27EA0C2300225B12 /* AppContributorsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2BEA7C27EA0C2300225B12 /* AppContributorsCoordinator.swift */; };
 		4B5B7D5C27E964AF009CF38D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5B7D5B27E964AF009CF38D /* AppDelegate.swift */; };
 		4B5B7D5E27E964AF009CF38D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5B7D5D27E964AF009CF38D /* SceneDelegate.swift */; };
-		4B5B7D6627E964AF009CF38D /* StarRepo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4B5B7D6427E964AF009CF38D /* StarRepo.xcdatamodeld */; };
 		4B5B7D6827E964B1009CF38D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B5B7D6727E964B1009CF38D /* Assets.xcassets */; };
 		4B5B7D6B27E964B1009CF38D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B5B7D6927E964B1009CF38D /* LaunchScreen.storyboard */; };
 		4B5B7D7627E964B1009CF38D /* StarRepoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5B7D7527E964B1009CF38D /* StarRepoTests.swift */; };
@@ -42,8 +41,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		05D6A25A27ED1DC500A53379 /* FavRepo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavRepo+CoreDataClass.swift"; sourceTree = "<group>"; };
-		05D6A25B27ED1DC500A53379 /* FavRepo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavRepo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4B2BEA6B27EA078000225B12 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		4B2BEA6D27EA081E00225B12 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		4B2BEA7627EA095C00225B12 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -52,7 +49,6 @@
 		4B5B7D5827E964AF009CF38D /* StarRepo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StarRepo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B5B7D5B27E964AF009CF38D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4B5B7D5D27E964AF009CF38D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		4B5B7D6527E964AF009CF38D /* StarRepo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StarRepo.xcdatamodel; sourceTree = "<group>"; };
 		4B5B7D6727E964B1009CF38D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B5B7D6A27E964B1009CF38D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4B5B7D6C27E964B1009CF38D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -142,8 +138,6 @@
 		4B5B7D4F27E964AF009CF38D = {
 			isa = PBXGroup;
 			children = (
-				05D6A25A27ED1DC500A53379 /* FavRepo+CoreDataClass.swift */,
-				05D6A25B27ED1DC500A53379 /* FavRepo+CoreDataProperties.swift */,
 				4B5B7D8F27E965EC009CF38D /* README.md */,
 				4B5B7D8E27E96560009CF38D /* Modules */,
 				4B5B7D5A27E964AF009CF38D /* StarRepo */,
@@ -177,7 +171,6 @@
 				4B5B7D6727E964B1009CF38D /* Assets.xcassets */,
 				4B5B7D6927E964B1009CF38D /* LaunchScreen.storyboard */,
 				4B5B7D6C27E964B1009CF38D /* Info.plist */,
-				4B5B7D6427E964AF009CF38D /* StarRepo.xcdatamodeld */,
 			);
 			path = StarRepo;
 			sourceTree = "<group>";
@@ -335,7 +328,6 @@
 			files = (
 				4B2BEA7727EA095C00225B12 /* AppCoordinator.swift in Sources */,
 				4B2BEA7B27EA0B9400225B12 /* FavoritesCoordinator.swift in Sources */,
-				4B5B7D6627E964AF009CF38D /* StarRepo.xcdatamodeld in Sources */,
 				4B2BEA6C27EA078000225B12 /* Coordinator.swift in Sources */,
 				4B2BEA7D27EA0C2300225B12 /* AppContributorsCoordinator.swift in Sources */,
 				4B5B7D5C27E964AF009CF38D /* AppDelegate.swift in Sources */,
@@ -687,19 +679,6 @@
 			productName = Form;
 		};
 /* End XCSwiftPackageProductDependency section */
-
-/* Begin XCVersionGroup section */
-		4B5B7D6427E964AF009CF38D /* StarRepo.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				4B5B7D6527E964AF009CF38D /* StarRepo.xcdatamodel */,
-			);
-			currentVersion = 4B5B7D6527E964AF009CF38D /* StarRepo.xcdatamodel */;
-			path = StarRepo.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 4B5B7D5027E964AF009CF38D /* Project object */;
 }
