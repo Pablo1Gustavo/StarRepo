@@ -1,20 +1,28 @@
 import CoreData
 import Core
 
+public typealias completion = (Result<String, FavError>) -> Void
+
+public enum FavError: Error {
+    case failFetchingFavorites
+    case failSavingFavorite
+    case failDeletingFavorite
+}
+
 ///Protocol for updating data from FavoritesRepos
 protocol FetchFavoriteReposProtocol {
-    func fetchFavoriteRepos(onCompletionHandler: (Result<[FavRepo], Error>) -> Void)
+    func fetchFavoriteRepos(onCompletionHandler: (Result<[FavRepo], FavError>) -> Void)
 }
 
 ///Protocol for adding data in FavoritesRepos
 protocol AddFavoriteRepoProtocol {
     func addFavoriteRepo(title: String, desc: String, imageURL: String)
-    func saveData()
+    func saveData(onCompletionHandler: completion)
 }
 
 ///Protocol for deleting data from FavoritesRepos
 protocol DeleteFavoriteRepoProtocol {
-    func deleteFavoriteRepo(uuid: UUID)
+    func deleteFavoriteRepo(uuid: UUID, onCompletionHandler: completion)
 }
 
 public class Persistence: ObservableObject {
@@ -35,10 +43,15 @@ public class Persistence: ObservableObject {
         }
     }
     
+    public static var shared: Persistence = {
+        let instance = Persistence()
+        return instance
+    }()
+    
 }
 
 extension Persistence: FetchFavoriteReposProtocol {
-    public func fetchFavoriteRepos(onCompletionHandler: (Result<[FavRepo], Error>) -> Void) {
+    public func fetchFavoriteRepos(onCompletionHandler: (Result<[FavRepo], FavError>) -> Void) {
         
         let context = container.viewContext
         
@@ -49,8 +62,8 @@ extension Persistence: FetchFavoriteReposProtocol {
             
             onCompletionHandler(.success(favRepoList))
             
-        } catch let error {
-            onCompletionHandler(.failure(error))
+        } catch {
+            onCompletionHandler(.failure(.failFetchingFavorites))
         }
     }
 }
@@ -67,22 +80,31 @@ extension Persistence: AddFavoriteRepoProtocol {
         favRepo.id = UUID()
         favRepo.imageURL = imageURL
         
-        saveData()
+        saveData { result in
+            switch result {
+            case .success(let res):
+                print(res)
+            case.failure(let error):
+                print(error)
+            }
+        }
     }
     
-    func saveData() {
+    func saveData(onCompletionHandler: completion) {
         let context = container.viewContext
         
         do {
             try context.save()
-        } catch let error as NSError {
-            print("Error saving. \(error.localizedDescription)")
+
+            onCompletionHandler(.success("Save Success"))
+        } catch {
+            onCompletionHandler(.failure(.failSavingFavorite))
         }
     }
 }
 
 extension Persistence: DeleteFavoriteRepoProtocol {
-    public func deleteFavoriteRepo(uuid: UUID) {
+    public func deleteFavoriteRepo(uuid: UUID, onCompletionHandler: completion) {
         let context = container.viewContext
         
         let predicate = NSPredicate(format: "id == %@", "\(uuid)")
@@ -93,18 +115,16 @@ extension Persistence: DeleteFavoriteRepoProtocol {
         
         do {
             
-            //o casting é necessário para que o código saiba o que está trazendo do banco
             let fetchResults = try context.fetch(fetchRequest)
             
             //garantindo que o id existe
             if let entityDelete = fetchResults.first {
                 context.delete(entityDelete)
-                saveData()
+                
+                onCompletionHandler(.success("Delete Success"))
             }
-            
-            
-        } catch let error {
-            print("Error Deleting \(error)")
+        } catch {
+            onCompletionHandler(.failure(.failDeletingFavorite))
         }
     }
     

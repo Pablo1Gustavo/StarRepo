@@ -7,8 +7,6 @@ public class FavoritesListViewController: UIViewController {
     private var viewModel: FavoritesListViewModel
     
     var favRepoList: [FavRepo] = []
-        
-    var persistence = Persistence()
     
     // MARK: - Initializers
     
@@ -38,10 +36,8 @@ public class FavoritesListViewController: UIViewController {
         
         navigationController?.navigationBar.prefersLargeTitles = true
     }
-    
-    // MARK: - Public methods
-
 }
+    // MARK: - Public methods
 
 #if DEBUG
 import SwiftUI
