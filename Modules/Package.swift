@@ -50,7 +50,7 @@ let package = Package(
             dependencies: ["Home"]),
         .target(
             name: "Favorites",
-            dependencies: ["FavoritesData"]),
+            dependencies: ["FavoritesData", "Core"]),
         .testTarget(
             name: "FavoritesTests",
             dependencies: ["Favorites"]),
