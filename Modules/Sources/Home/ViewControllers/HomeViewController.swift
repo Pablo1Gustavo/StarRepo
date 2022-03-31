@@ -2,10 +2,13 @@ import UIKit
 import FavoritesData
 import CoreUI
 import Extensions
+import Core
 
 public class HomeViewController: UIViewController {
     
     private var viewModel: HomeViewModel
+    
+    public var didSelectRepository: (Repository) -> Void
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -26,8 +29,9 @@ public class HomeViewController: UIViewController {
     
     // MARK: - Initializers
     
-    public init(viewModel: HomeViewModel) {
+    public init(viewModel: HomeViewModel, didSelectRepository: @escaping (Repository) -> Void) {
         self.viewModel = viewModel
+        self.didSelectRepository = didSelectRepository
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -117,6 +121,11 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let repo = viewModel.repositories[indexPath.row]
+        didSelectRepository(repo)
+    }
+    
 }
 
 #if DEBUG
@@ -154,7 +163,8 @@ struct HomeViewControllerPreviews: PreviewProvider {
             )
             
             let viewController = HomeViewController(
-                viewModel: viewModel
+                viewModel: viewModel,
+                didSelectRepository: { _ in }
             )
             
             let navController = UINavigationController(rootViewController: viewController)

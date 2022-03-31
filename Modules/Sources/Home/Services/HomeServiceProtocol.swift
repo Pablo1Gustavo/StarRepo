@@ -1,7 +1,7 @@
 import Foundation
 import Core
 
-public protocol HomeService {
+public protocol HomeServiceProtocol {
     func fetchRepositories(searchText: String, completion: (Result<[Repository], Error>) -> Void)
 }
 
@@ -12,7 +12,7 @@ extension DummyHomeService {
     }
 }
 
-struct DummyHomeService: HomeService {
+struct DummyHomeService: HomeServiceProtocol {
     private var state: HomeViewModel.State
     
     init(state: HomeViewModel.State) {

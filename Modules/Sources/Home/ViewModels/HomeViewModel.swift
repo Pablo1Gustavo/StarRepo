@@ -12,13 +12,13 @@ public extension HomeViewModel {
 
 public final class HomeViewModel {
     
-    private var homeService: HomeService
+    private var homeService: HomeServiceProtocol
     
     private(set) var state: State = .loading
     
     private(set) var repositories: [Repository] = []
     
-    public init(homeService: HomeService) {
+    public init(homeService: HomeServiceProtocol) {
         self.homeService = homeService
     }
     
