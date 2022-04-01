@@ -1,5 +1,4 @@
 import UIKit
-import FavoritesData
 
 public class HomeViewController: UIViewController {
     

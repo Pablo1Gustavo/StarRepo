@@ -1,6 +1,7 @@
 import UIKit
 
 public class FormViewController: UIViewController {
+    
     private var viewModel: FormViewModel
     
     private(set) lazy var tableView: UITableView = {
@@ -44,9 +45,6 @@ public class FormViewController: UIViewController {
         ])
     }
     
-    public override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
     
     // MARK: - Private methods
     

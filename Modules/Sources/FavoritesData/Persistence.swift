@@ -3,9 +3,7 @@ import Core
 
 public class Persistence {
     
-    // MARK: - Private variables
-    
-    private let container: NSPersistentContainer
+    public let container: NSPersistentContainer
     
     // MARK: - Initializers
     
