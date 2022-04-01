@@ -9,7 +9,7 @@ extension FavRepo {
     }
 
     @NSManaged public var desc: String?
-    @NSManaged public var id: UUID?
+    @NSManaged public var id:   String?
     @NSManaged public var imageURL: String?
     @NSManaged public var title: String?
 

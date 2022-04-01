@@ -1,56 +1,37 @@
 import CoreData
 import Core
 
-public typealias completion = (Result<String, FavError>) -> Void
-
-public enum FavError: Error {
-    case failFetchingFavorites
-    case failSavingFavorite
-    case failDeletingFavorite
-}
-
-///Protocol for updating data from FavoritesRepos
-protocol FetchFavoriteReposProtocol {
-    func fetchFavoriteRepos(onCompletionHandler: (Result<[FavRepo], FavError>) -> Void)
-}
-
-///Protocol for adding data in FavoritesRepos
-protocol AddFavoriteRepoProtocol {
-    func addFavoriteRepo(title: String, desc: String, imageURL: String)
-    func saveData(onCompletionHandler: completion)
-}
-
-///Protocol for deleting data from FavoritesRepos
-protocol DeleteFavoriteRepoProtocol {
-    func deleteFavoriteRepo(uuid: UUID, onCompletionHandler: completion)
-}
-
-public class Persistence: ObservableObject {
+public class Persistence {
     
-    //setting up CoreDataContainer
-    let container: NSPersistentContainer
+    // MARK: - Private variables
+    
+    private let container: NSPersistentContainer
+    
+    // MARK: - Initializers
     
     public init(inMemory: Bool = false) {
+        
         let managedObjectModel = NSManagedObjectModel(contentsOf: Bundle.module.url(forResource: "FavoritesRepos", withExtension: "momd")!)
+        
         container = NSPersistentContainer(name: "FavoritesRepos", managedObjectModel: managedObjectModel!)
+        
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         }
+        
         container.loadPersistentStores { storeDescription, error in
+            
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         }
     }
-    
-    public static var shared: Persistence = {
-        let instance = Persistence()
-        return instance
-    }()
-    
 }
 
+// MARK: - Public methods
+
 extension Persistence: FetchFavoriteReposProtocol {
+    
     public func fetchFavoriteRepos(onCompletionHandler: (Result<[FavRepo], FavError>) -> Void) {
         
         let context = container.viewContext
@@ -70,14 +51,14 @@ extension Persistence: FetchFavoriteReposProtocol {
 
 extension Persistence: AddFavoriteRepoProtocol {
     
-    public func addFavoriteRepo(title: String, desc: String, imageURL: String) {
+    public func addFavoriteRepo(id: String, title: String, desc: String, imageURL: String) {
         let context = container.viewContext
         
         let favRepo = FavRepo(context: context)
         
         favRepo.title = title
         favRepo.desc = desc
-        favRepo.id = UUID()
+        favRepo.id = id
         favRepo.imageURL = imageURL
         
         saveData { result in
@@ -95,7 +76,7 @@ extension Persistence: AddFavoriteRepoProtocol {
         
         do {
             try context.save()
-
+            
             onCompletionHandler(.success("Save Success"))
         } catch {
             onCompletionHandler(.failure(.failSavingFavorite))
@@ -104,10 +85,10 @@ extension Persistence: AddFavoriteRepoProtocol {
 }
 
 extension Persistence: DeleteFavoriteRepoProtocol {
-    public func deleteFavoriteRepo(uuid: UUID, onCompletionHandler: completion) {
+    public func deleteFavoriteRepo(id: String, onCompletionHandler: completion) {
         let context = container.viewContext
         
-        let predicate = NSPredicate(format: "id == %@", "\(uuid)")
+        let predicate = NSPredicate(format: "id == %@", "\(id)")
         
         let fetchRequest: NSFetchRequest<FavRepo> = FavRepo.fetchRequest()
         
@@ -117,7 +98,6 @@ extension Persistence: DeleteFavoriteRepoProtocol {
             
             let fetchResults = try context.fetch(fetchRequest)
             
-            //garantindo que o id existe
             if let entityDelete = fetchResults.first {
                 context.delete(entityDelete)
                 
