@@ -1,5 +1,6 @@
 import UIKit
 import Home
+import Core
 
 final class HomeCoordinator: Coordinator {
     
@@ -13,11 +14,23 @@ final class HomeCoordinator: Coordinator {
     }
     
     func start() {
-        let viewModel = HomeViewModel()
+        let viewModel = HomeViewModel(
+            homeService: HomeService()
+        )
         
-        let viewController = HomeViewController(viewModel: viewModel)
-        viewController.view.backgroundColor = .systemGray2
+        let viewController = HomeViewController(
+            viewModel: viewModel,
+            didSelectRepository: { repo in
+                self.pushRepoDetailsViewController(repository: repo)
+            }
+        )
         
         rootViewController.setViewControllers([viewController], animated: false)
+    }
+    
+    func pushRepoDetailsViewController(repository: Repository) {
+        let viewController = UIViewController()
+        viewController.view.backgroundColor = .systemPink
+        rootViewController.pushViewController(viewController, animated: true)
     }
 }
