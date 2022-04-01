@@ -3,7 +3,7 @@ import FavoritesData
 import Core
 
 public class FavoritesListViewController: UIViewController {
-
+    
     private var viewModel: FavoritesListViewModel
     
     // MARK: - Initializers
@@ -18,11 +18,13 @@ public class FavoritesListViewController: UIViewController {
     }
     
     // MARK: - Lifecycle
-
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         
         configureNavigationBar()
+        
+        view.backgroundColor = .systemBackground
     }
     
     // MARK: - Private methods
@@ -32,10 +34,8 @@ public class FavoritesListViewController: UIViewController {
         
         navigationController?.navigationBar.prefersLargeTitles = true
     }
-    
-    // MARK: - Public methods
-
 }
+// MARK: - Public methods
 
 #if DEBUG
 import SwiftUI
