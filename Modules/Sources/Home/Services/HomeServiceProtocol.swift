@@ -13,9 +13,9 @@ extension DummyHomeService {
 }
 
 struct DummyHomeService: HomeServiceProtocol {
-    private var state: HomeViewModel.State
+    private var state: HomeViewModel.ViewState
     
-    init(state: HomeViewModel.State) {
+    init(state: HomeViewModel.ViewState) {
         self.state = state
     }
     
