@@ -1,13 +1,7 @@
 import UIKit
-//import FavoritesData
-//import Core
 
 public class FormViewController: UIViewController {
-    /* -----------COREDATA TEST --------------
-    var favRepoList: [FavRepo] = []
     
-    var persistence = Persistence()
-    */
     private var viewModel: FormViewModel
     
     private(set) lazy var tableView: UITableView = {
@@ -51,36 +45,8 @@ public class FormViewController: UIViewController {
         ])
     }
     
-    public override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        //addInCoreData()
-        //getDataFromCoreData()
-        //print(favRepoList)
-    }
     
     // MARK: - Private methods
-    
-    /* ----------- COREDATA TEST --------------
-    
-    private func addInCoreData() {
-        persistence.addFavoriteRepo(title: "Title Test", desc: "I am testing adding something in CoreData", imageURL: "ImageTest")
-    }
-    
-    private func getDataFromCoreData() {
-        persistence.fetchFavoriteRepos() {result in
-            switch result {
-            case .success(let res):
-                self.favRepoList = res
-//                DispatchQueue.main.async {
-//                    self.tasksTableView.reloadData()
-//                }
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
-    */
     
     private func registerCells() {
         
