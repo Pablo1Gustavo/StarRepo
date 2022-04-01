@@ -9,18 +9,18 @@ public enum FavError: Error {
     case failDeletingFavorite
 }
 
-///Protocol for updating favorites repositories
+///Protocol for updating data from FavoritesRepos
 protocol FetchFavoriteReposProtocol {
     func fetchFavoriteRepos(onCompletionHandler: (Result<[FavRepo], FavError>) -> Void)
 }
 
-///Protocol for adding a new favorite repositorie
+///Protocol for adding data in FavoritesRepos
 protocol AddFavoriteRepoProtocol {
-    func addFavoriteRepo(id: String, title: String, desc: String, imageURL: String)
+    func addFavoriteRepo(id: Int, title: String, desc: String, imageURL: String)
     func saveData(onCompletionHandler: completion)
 }
 
-///Protocol for deleting a repositorie from favorites
+///Protocol for deleting data from FavoritesRepos
 protocol DeleteFavoriteRepoProtocol {
-    func deleteFavoriteRepo(id: String, onCompletionHandler: completion)
+    func deleteFavoriteRepo(id: Int64, onCompletionHandler: completion)
 }
