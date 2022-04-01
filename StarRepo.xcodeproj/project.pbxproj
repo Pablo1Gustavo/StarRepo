@@ -14,9 +14,9 @@
 		4B2BEA7727EA095C00225B12 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2BEA7627EA095C00225B12 /* AppCoordinator.swift */; };
 		4B2BEA7B27EA0B9400225B12 /* FavoritesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2BEA7A27EA0B9400225B12 /* FavoritesCoordinator.swift */; };
 		4B2BEA7D27EA0C2300225B12 /* AppContributorsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2BEA7C27EA0C2300225B12 /* AppContributorsCoordinator.swift */; };
+		4B4FD9B827F51CDB004DD6F6 /* HomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4FD9B727F51CDB004DD6F6 /* HomeService.swift */; };
 		4B5B7D5C27E964AF009CF38D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5B7D5B27E964AF009CF38D /* AppDelegate.swift */; };
 		4B5B7D5E27E964AF009CF38D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5B7D5D27E964AF009CF38D /* SceneDelegate.swift */; };
-		4B5B7D6627E964AF009CF38D /* StarRepo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4B5B7D6427E964AF009CF38D /* StarRepo.xcdatamodeld */; };
 		4B5B7D6827E964B1009CF38D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B5B7D6727E964B1009CF38D /* Assets.xcassets */; };
 		4B5B7D6B27E964B1009CF38D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B5B7D6927E964B1009CF38D /* LaunchScreen.storyboard */; };
 		4B5B7D7627E964B1009CF38D /* StarRepoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5B7D7527E964B1009CF38D /* StarRepoTests.swift */; };
@@ -47,10 +47,10 @@
 		4B2BEA7627EA095C00225B12 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		4B2BEA7A27EA0B9400225B12 /* FavoritesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesCoordinator.swift; sourceTree = "<group>"; };
 		4B2BEA7C27EA0C2300225B12 /* AppContributorsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContributorsCoordinator.swift; sourceTree = "<group>"; };
+		4B4FD9B727F51CDB004DD6F6 /* HomeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeService.swift; sourceTree = "<group>"; };
 		4B5B7D5827E964AF009CF38D /* StarRepo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StarRepo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B5B7D5B27E964AF009CF38D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4B5B7D5D27E964AF009CF38D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		4B5B7D6527E964AF009CF38D /* StarRepo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StarRepo.xcdatamodel; sourceTree = "<group>"; };
 		4B5B7D6727E964B1009CF38D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B5B7D6A27E964B1009CF38D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4B5B7D6C27E964B1009CF38D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -108,6 +108,7 @@
 		4B2BEA7427EA093900225B12 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				4B4FD9B627F512EC004DD6F6 /* Services */,
 				4B2BEA6D27EA081E00225B12 /* HomeCoordinator.swift */,
 			);
 			path = Home;
@@ -135,6 +136,14 @@
 				4B2BEA7C27EA0C2300225B12 /* AppContributorsCoordinator.swift */,
 			);
 			path = AppContributors;
+			sourceTree = "<group>";
+		};
+		4B4FD9B627F512EC004DD6F6 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				4B4FD9B727F51CDB004DD6F6 /* HomeService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		4B5B7D4F27E964AF009CF38D = {
@@ -173,7 +182,6 @@
 				4B5B7D6727E964B1009CF38D /* Assets.xcassets */,
 				4B5B7D6927E964B1009CF38D /* LaunchScreen.storyboard */,
 				4B5B7D6C27E964B1009CF38D /* Info.plist */,
-				4B5B7D6427E964AF009CF38D /* StarRepo.xcdatamodeld */,
 			);
 			path = StarRepo;
 			sourceTree = "<group>";
@@ -331,11 +339,11 @@
 			files = (
 				4B2BEA7727EA095C00225B12 /* AppCoordinator.swift in Sources */,
 				4B2BEA7B27EA0B9400225B12 /* FavoritesCoordinator.swift in Sources */,
-				4B5B7D6627E964AF009CF38D /* StarRepo.xcdatamodeld in Sources */,
 				4B2BEA6C27EA078000225B12 /* Coordinator.swift in Sources */,
 				4B2BEA7D27EA0C2300225B12 /* AppContributorsCoordinator.swift in Sources */,
 				4B5B7D5C27E964AF009CF38D /* AppDelegate.swift in Sources */,
 				4B5B7D5E27E964AF009CF38D /* SceneDelegate.swift in Sources */,
+				4B4FD9B827F51CDB004DD6F6 /* HomeService.swift in Sources */,
 				4B2BEA6E27EA081E00225B12 /* HomeCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -683,19 +691,6 @@
 			productName = Form;
 		};
 /* End XCSwiftPackageProductDependency section */
-
-/* Begin XCVersionGroup section */
-		4B5B7D6427E964AF009CF38D /* StarRepo.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				4B5B7D6527E964AF009CF38D /* StarRepo.xcdatamodel */,
-			);
-			currentVersion = 4B5B7D6527E964AF009CF38D /* StarRepo.xcdatamodel */;
-			path = StarRepo.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 4B5B7D5027E964AF009CF38D /* Project object */;
 }
