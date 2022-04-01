@@ -15,33 +15,34 @@ public final class FavoritesListViewModel {
     
     private(set) var state: State = .loading
     
-    private(set) var favRepositories: [FavRepo] = []
+    private var fetchService: FetchFavoriteReposProtocol
     
-    public init() {
-        
+    private var deleteService: DeleteFavoriteRepoProtocol
+    
+    var favRepositories: [FavRepo] = []
+    
+    public init(fetchService: FetchFavoriteReposProtocol, deleteService: DeleteFavoriteRepoProtocol) {
+        self.fetchService = fetchService
+        self.deleteService = deleteService
     }
     
     func fetchFavoriteRepos() {
         //state = .loading
         
-        Persistence.shared.fetchFavoriteRepos() {result in
+        fetchService.fetchFavoriteRepos {result in
             switch result {
-            case .success(let res):
-                self.favRepositories = res
-                self.state = res.isEmpty ? .empty : .done
+            case .success(let favRepos):
+                self.favRepositories = favRepos
+                self.state = favRepos.isEmpty ? .empty : .done
             case .failure(let error):
                 print(error)
                 self.state = .failure
             }
         }
-        
-//        for item in favRepositories {
-//            print(item.id!)
-//        }
     }
     
-    func deleteFavoriteRepo(id: UUID) {
-        Persistence.shared.deleteFavoriteRepo(uuid: id) {result in
+    func deleteFavoriteRepo(id: Int64) {
+        deleteService.deleteFavoriteRepo(id: id) {result in
             switch result {
             case .success(let res):
                 print(res)

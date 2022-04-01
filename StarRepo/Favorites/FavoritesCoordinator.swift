@@ -1,5 +1,6 @@
 import UIKit
 import Favorites
+import FavoritesData
 
 final class FavoritesCoordinator: Coordinator {
     
@@ -13,7 +14,7 @@ final class FavoritesCoordinator: Coordinator {
     }
     
     func start() {
-        let viewModel = FavoritesListViewModel()
+        let viewModel = FavoritesListViewModel(fetchService: Persistence(), deleteService: Persistence())
         
         let viewController = FavoritesListViewController(
             viewModel: viewModel
