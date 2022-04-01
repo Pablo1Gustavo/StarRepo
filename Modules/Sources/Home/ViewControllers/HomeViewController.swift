@@ -27,6 +27,22 @@ public class HomeViewController: UIViewController {
         return label
     }()
     
+    private lazy var autocompleteSearchResultsController: AutocompleteSearchResultsViewController = {
+        let controller = AutocompleteSearchResultsViewController(
+            viewModel: AutocompleteSearchResultsViewModel()
+        )
+        controller.delegate = self
+        return controller
+    }()
+    
+    private lazy var searchController: UISearchController = {
+        let searchController = UISearchController(searchResultsController: autocompleteSearchResultsController)
+        searchController.searchBar.placeholder = "Search for repos by language..."
+        searchController.searchBar.searchBarStyle = .minimal
+        searchController.searchResultsUpdater = self
+        return searchController
+    }()
+    
     // MARK: - Initializers
     
     public init(viewModel: HomeViewModel, didSelectRepository: @escaping (Repository) -> Void) {
@@ -47,9 +63,16 @@ public class HomeViewController: UIViewController {
         configureNavigationBar()
         registerCells()
         
-        viewModel.fetchRepos(searchText: "") { [weak self] in
+        reloadView()
+        viewModel.didUpdateViewState = { [weak self] in
             self?.reloadView()
         }
+    }
+    
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tableView.deselectRow(animated: true)
     }
     
     public override func loadView() {
@@ -70,6 +93,9 @@ public class HomeViewController: UIViewController {
         title = "Repos"
         
         navigationController?.navigationBar.prefersLargeTitles = true
+        
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
     
     private func registerCells() {
@@ -78,15 +104,23 @@ public class HomeViewController: UIViewController {
         
     }
     
+    private func searchRepositories(language: String) {
+        viewModel.fetchRepos(searchText: language)
+    }
+    
     private func reloadView() {
         tableView.reloadData()
         
         switch viewModel.state {
+        case .onboarding:
+            emptyMessageLabel.text = "Onboarding"
+            tableView.backgroundView = emptyMessageLabel
         case .loading:
             emptyMessageLabel.text = "Loading"
             tableView.backgroundView = emptyMessageLabel
         case .done:
-            break
+            emptyMessageLabel.text = nil
+            tableView.backgroundView = nil
         case .empty:
             emptyMessageLabel.text = "No repos"
             tableView.backgroundView = emptyMessageLabel
@@ -98,6 +132,26 @@ public class HomeViewController: UIViewController {
     
     // MARK: - Public methods
 
+}
+
+extension HomeViewController: UISearchResultsUpdating {
+    public func updateSearchResults(for searchController: UISearchController) {
+        guard let resultsController = searchController.searchResultsController as? AutocompleteSearchResultsViewController else {
+            return
+        }
+        
+        guard let searchText = searchController.searchBar.text else { return }
+        
+        resultsController.fetchLanguages(searchText: searchText)
+    }
+}
+
+extension HomeViewController: AutocompleteSearchResultsViewControllerDelegate {
+    func didSelectLanguage(_ language: String) {
+        searchController.isActive = false
+        searchController.searchBar.text = language
+        searchRepositories(language: language)
+    }
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
@@ -133,7 +187,7 @@ import SwiftUI
 
 struct HomeViewControllerPreviews: PreviewProvider {
     static var previews: some View {
-        ForEach(HomeViewModel.State.allCases, id: \.self) { state in
+        ForEach(HomeViewModel.ViewState.allCases, id: \.self) { state in
             if #available(iOS 14.0, *) {
                 ContainerPreview(state: state)
                     .ignoresSafeArea()
@@ -149,9 +203,9 @@ struct HomeViewControllerPreviews: PreviewProvider {
     struct ContainerPreview: UIViewControllerRepresentable {
         typealias UIViewControllerType = UINavigationController
         
-        private var state: HomeViewModel.State
+        private var state: HomeViewModel.ViewState
         
-        init(state: HomeViewModel.State = .done) {
+        init(state: HomeViewModel.ViewState = .done) {
             self.state = state
         }
         
