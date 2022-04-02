@@ -4,10 +4,10 @@ import FavoritesData
 import CoreUI
 
 public class FavoritesListViewController: UIViewController {
-
+    
     private var viewModel: FavoritesListViewModel
     
-    public var didSelectFavoriteRepository: (Repository) -> Void
+    public var didSelectFavoriteRepository: (FavRepo) -> Void
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -28,7 +28,7 @@ public class FavoritesListViewController: UIViewController {
     
     // MARK: - Initializers
     
-    public init(viewModel: FavoritesListViewModel) {
+    public init(viewModel: FavoritesListViewModel, didSelectFavoriteRepository: @escaping (FavRepo) -> Void) {
         self.viewModel = viewModel
         self.didSelectFavoriteRepository = didSelectFavoriteRepository
         super.init(nibName: nil, bundle: nil)
@@ -39,7 +39,7 @@ public class FavoritesListViewController: UIViewController {
     }
     
     // MARK: - Lifecycle
-
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,7 +48,7 @@ public class FavoritesListViewController: UIViewController {
         configureNavigationBar()
         registerCells()
         
-        fetchFavorites()
+        searchFavorites()
         
         reloadView()
         viewModel.didUpdateViewState = { [weak self] in
@@ -64,48 +64,41 @@ public class FavoritesListViewController: UIViewController {
         configureTableView()
     }
     
-    public override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        
-    }
-    
     // MARK: - Private methods
     
     private func configureNavigationBar() {
-        title = "Favorites"
+        title = "Favoritos"
         
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    private func fetchFavorites() {
+    private func searchFavorites() {
+        
         viewModel.fetchFavoriteRepos()
+        
     }
     
     private func registerCells() {
-
+        
         tableView.register(RepositoryTableViewCell.self, forCellReuseIdentifier: RepositoryTableViewCell.identifier)
         
     }
     
     private func configureTableView() {
+        
         view.addSubview(tableView)
+        
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-    }
-    
-    //Function just for testing
-    private func printFavReposId() {
-        for repo in viewModel.favRepositories {
-            print(repo.id!.int64Value)
-        }
+        
     }
     
     private func reloadView() {
+        
         tableView.reloadData()
         
         switch viewModel.state {
@@ -113,7 +106,8 @@ public class FavoritesListViewController: UIViewController {
             emptyMessageLabel.text = "Loading"
             tableView.backgroundView = emptyMessageLabel
         case .done:
-            break
+            emptyMessageLabel.text = nil
+            tableView.backgroundView = nil
         case .empty:
             emptyMessageLabel.text = "No Favorites Repos"
             tableView.backgroundView = emptyMessageLabel
@@ -124,17 +118,20 @@ public class FavoritesListViewController: UIViewController {
     }
     
     // MARK: - Public methods
-
+    
 }
 
 extension FavoritesListViewController: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        let favRepositorie = viewModel.favRepositories[indexPath.row]
+        didSelectFavoriteRepository(favRepositorie)
+        
     }
     
     public func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .delete
+        .delete
     }
     
     public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -143,7 +140,7 @@ extension FavoritesListViewController: UITableViewDelegate {
             
             let favRepoToDelete = viewModel.favRepositories[indexPath.row]
             viewModel.deleteFavoriteRepo(id: favRepoToDelete.id!.int64Value)
-            fetchFavorites()
+            searchFavorites()
             
             tableView.deleteRows(at: [indexPath], with: .fade)
             
@@ -156,7 +153,7 @@ extension FavoritesListViewController: UITableViewDelegate {
 extension FavoritesListViewController: UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.favRepositories.count
+        viewModel.state == .done ? viewModel.favRepositories.count : 0
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -164,10 +161,12 @@ extension FavoritesListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
+        //random id for testing
         let randomInt = Int.random(in: 0..<999999)
         
         let favRepositorie = viewModel.favRepositories[indexPath.row]
         
+        //have to change this after finishing defaultRepository protocol
         let repo = Repository( id: randomInt, name: favRepositorie.title ?? "", description: favRepositorie.desc ?? "")
         
         cell.configure(with: repo)
@@ -197,7 +196,8 @@ struct FavoritesListViewControllerPreviews: PreviewProvider {
             let viewModel = FavoritesListViewModel(fetchService: Persistence(), deleteService: Persistence())
             
             let viewController = FavoritesListViewController(
-                viewModel: viewModel
+                viewModel: viewModel,
+                didSelectFavoriteRepository: { _ in }
             )
             
             let navController = UINavigationController(rootViewController: viewController)

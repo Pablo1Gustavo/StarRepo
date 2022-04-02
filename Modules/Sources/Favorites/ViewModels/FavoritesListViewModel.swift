@@ -33,7 +33,7 @@ public final class FavoritesListViewModel {
     }
     
     func fetchFavoriteRepos() {
-        state = .loading
+        self.state = .loading
         
         fetchService.fetchFavoriteRepos {result in
             switch result {
