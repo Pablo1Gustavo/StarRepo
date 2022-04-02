@@ -7,7 +7,7 @@ public class FavoritesListViewController: UIViewController {
 
     private var viewModel: FavoritesListViewModel
     
-    //public var didSelectRepository: (Repository) -> Void //verificar se é necessário
+    public var didSelectFavoriteRepository: (Repository) -> Void
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -30,6 +30,7 @@ public class FavoritesListViewController: UIViewController {
     
     public init(viewModel: FavoritesListViewModel) {
         self.viewModel = viewModel
+        self.didSelectFavoriteRepository = didSelectFavoriteRepository
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -45,28 +46,28 @@ public class FavoritesListViewController: UIViewController {
         view.backgroundColor = .systemBackground
         
         configureNavigationBar()
-        
         registerCells()
         
         fetchFavorites()
+        
+        reloadView()
+        viewModel.didUpdateViewState = { [weak self] in
+            DispatchQueue.main.async {
+                self?.reloadView()
+            }
+        }
     }
     
     public override func loadView() {
         super.loadView()
         
-        view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+        configureTableView()
     }
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        reloadView()
+        
     }
     
     // MARK: - Private methods
@@ -82,9 +83,19 @@ public class FavoritesListViewController: UIViewController {
     }
     
     private func registerCells() {
-        
+
         tableView.register(RepositoryTableViewCell.self, forCellReuseIdentifier: RepositoryTableViewCell.identifier)
         
+    }
+    
+    private func configureTableView() {
+        view.addSubview(tableView)
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
     
     //Function just for testing
@@ -104,7 +115,7 @@ public class FavoritesListViewController: UIViewController {
         case .done:
             break
         case .empty:
-            emptyMessageLabel.text = "No repos"
+            emptyMessageLabel.text = "No Favorites Repos"
             tableView.backgroundView = emptyMessageLabel
         case .failure:
             emptyMessageLabel.text = "Error"

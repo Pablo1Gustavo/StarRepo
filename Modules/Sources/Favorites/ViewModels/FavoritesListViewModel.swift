@@ -3,7 +3,7 @@ import Core
 import FavoritesData
 
 public extension FavoritesListViewModel {
-    enum State: String, CaseIterable {
+    enum ViewState: String, CaseIterable {
         case done = "Done"
         case empty = "Empty"
         case failure = "Failure"
@@ -13,11 +13,17 @@ public extension FavoritesListViewModel {
 
 public final class FavoritesListViewModel {
     
-    private(set) var state: State = .loading
-    
     private var fetchService: FetchFavoriteReposProtocol
     
     private var deleteService: DeleteFavoriteRepoProtocol
+    
+    public var didUpdateViewState: (() -> Void)?
+    
+    private(set) var state: ViewState = .empty {
+        didSet {
+            didUpdateViewState?()
+        }
+    }
     
     var favRepositories: [FavRepo] = []
     
@@ -27,7 +33,7 @@ public final class FavoritesListViewModel {
     }
     
     func fetchFavoriteRepos() {
-        //state = .loading
+        state = .loading
         
         fetchService.fetchFavoriteRepos {result in
             switch result {
