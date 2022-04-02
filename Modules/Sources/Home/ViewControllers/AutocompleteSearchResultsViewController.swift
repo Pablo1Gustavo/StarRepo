@@ -75,26 +75,52 @@ class AutocompleteSearchResultsViewController: UIViewController {
 extension AutocompleteSearchResultsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.filteredLanguages?.count ?? 0
+        switch section {
+        case 0:
+            return 1
+        case 1:
+            return viewModel.filteredLanguages?.count ?? 0
+        default:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let language = viewModel.filteredLanguages?[indexPath.row] else { return UITableViewCell() }
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        
-        cell.textLabel?.text = language
-        
-        return cell
+        switch indexPath.section {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+            
+            cell.textLabel?.text = viewModel.searchText
+            
+            return cell
+        case 1:
+            guard let language = viewModel.filteredLanguages?[indexPath.row] else { return UITableViewCell() }
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+            
+            cell.textLabel?.text = language
+            
+            return cell
+        default:
+            return UITableViewCell()
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let language = viewModel.filteredLanguages?[indexPath.row] else { return }
-        delegate?.didSelectLanguage(language)
+        switch indexPath.section {
+        case 0:
+            guard !viewModel.searchText.isEmpty else { return }
+            delegate?.didSelectLanguage(viewModel.searchText)
+        case 1:
+            guard let language = viewModel.filteredLanguages?[indexPath.row] else { return }
+            delegate?.didSelectLanguage(language)
+        default:
+            break
+        }
     }
     
 }
