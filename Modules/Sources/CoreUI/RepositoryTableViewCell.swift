@@ -85,7 +85,7 @@ public class RepositoryTableViewCell: UITableViewCell {
     
     public func configure(with model: Repository) {
         self.nameLabel.text = model.name
-        self.descriptionLabel.text = model.description
+        self.descriptionLabel.text = model.desc
     }
 
 }
