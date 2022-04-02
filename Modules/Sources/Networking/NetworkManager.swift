@@ -10,8 +10,6 @@ public final class NetworkManager {
             
             guard let url = baseURL.url else { return }
             
-            print(url.absoluteString)
-            
             var requestURL = URLRequest(url: url)
             requestURL.httpMethod = request.method.name
             

@@ -4,11 +4,9 @@ import Networking
 struct HomeRequest: URLRequestProtocol {
     
     private var language: String
-    private var stars: Int
     
     init(language: String, stars: Int) {
         self.language = language
-        self.stars = stars
     }
     
     var baseURL: String {
@@ -16,7 +14,7 @@ struct HomeRequest: URLRequestProtocol {
     }
     
     var path: String {
-        return "q=stars:\(self.stars)+language:\(self.language)&sort=stars&order=desc"
+        return "q=language:\(self.language)&sort=stars&order=desc"
     }
     
     var method: HTTPMethod {
