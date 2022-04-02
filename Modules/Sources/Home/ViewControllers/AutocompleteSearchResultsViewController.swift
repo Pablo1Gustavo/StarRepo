@@ -1,10 +1,3 @@
-//
-//  AutocompleteSearchResultsViewController.swift
-//  
-//
-//  Created by SP12442 on 31/03/22.
-//
-
 import UIKit
 
 protocol AutocompleteSearchResultsViewControllerDelegate: AnyObject {
