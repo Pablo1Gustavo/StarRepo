@@ -2,7 +2,7 @@ import Foundation
 import Core
 
 public protocol HomeServiceProtocol {
-    func fetchRepositories(searchText: String, completion: (Result<[Repository], Error>) -> Void)
+    func fetchRepositories(searchText: String, completion: @escaping (Result<[Repository], Error>) -> Void)
 }
 
 #if DEBUG

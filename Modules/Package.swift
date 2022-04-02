@@ -16,6 +16,7 @@ let package = Package(
         .library(
             name: "Modules",
             targets: [
+                "Networking",
                 "Home",
                 "Favorites"
             ]),
@@ -36,6 +37,8 @@ let package = Package(
         .target(
             name: "CoreUI",
             dependencies: ["Extensions"]),
+        .target(name: "Networking",
+               dependencies: []),
         .target(
             name: "Form",
             dependencies: ["Core"]),

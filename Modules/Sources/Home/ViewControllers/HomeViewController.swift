@@ -65,7 +65,9 @@ public class HomeViewController: UIViewController {
         
         reloadView()
         viewModel.didUpdateViewState = { [weak self] in
-            self?.reloadView()
+            DispatchQueue.main.async {
+                self?.reloadView()
+            }
         }
     }
     
@@ -161,7 +163,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.repositories.count
+        return viewModel.state == .done ? viewModel.repositories.count : 0
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
