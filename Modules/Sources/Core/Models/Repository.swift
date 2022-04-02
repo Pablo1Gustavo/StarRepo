@@ -4,25 +4,25 @@ public struct Repository: Decodable, RepositoryProtocol {
     @SRNumber public var id: NSNumber
     public var name: String
     public var desc: String?
-    public let owner: Owner
+    public let owner: Owner?
     public let watchers: Int
     public let createdAt: String
-    public let license: License
+    public let license: License?
     
-    public var imageURL: String {
+    public var imageURL: String? {
         get {
-            return owner.avatarURL
+            return owner?.avatarURL
         } set {}
     }
     
     public init(
         id: NSNumber,
         name: String,
-        description: String?,
-        owner: Owner,
+        description: String,
+        owner: Owner?,
         watchers: Int,
         createdAt: String,
-        license: License
+        license: License?
     ) {
         self.id = id
         self.name = name
@@ -36,7 +36,7 @@ public struct Repository: Decodable, RepositoryProtocol {
     enum CodingKeys: String, CodingKey {
         case id
         case name
-        case desc
+        case desc = "description"
         case owner
         case watchers
         case createdAt = "created_at"
@@ -45,7 +45,7 @@ public struct Repository: Decodable, RepositoryProtocol {
 }
 
 public struct Owner: Decodable {
-    public let avatarURL: String
+    public let avatarURL: String?
     
     public init(avatarURL: String) {
         self.avatarURL = avatarURL
@@ -57,8 +57,8 @@ public struct Owner: Decodable {
 }
 
 public struct License: Codable {
-    public let name: String
-    public let url: String
+    public let name: String?
+    public let url: String?
     
     public init(name: String, url: String) {
         self.name = name

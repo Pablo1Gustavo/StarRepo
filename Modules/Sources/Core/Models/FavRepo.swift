@@ -10,7 +10,7 @@ public class FavRepo: NSManagedObject, RepositoryProtocol {
 
     @NSManaged public var desc: String?
     @NSManaged public var id: NSNumber
-    @NSManaged public var imageURL: String
+    @NSManaged public var imageURL: String?
     @NSManaged public var name: String
     
 }
