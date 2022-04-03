@@ -1,17 +1,22 @@
-//
-//  RepoDetailsViewController.swift
-//  
-//
-//  Created by Aloc SP11602 on 02/04/22.
-//
-
 import UIKit
+import Form
 
-class RepoDetailsViewController: UIViewController {
+public class RepoDetailsViewController: UIViewController {
+    
+    private var viewModel: RepoDetailsViewModel
 
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
+    
+    public init(viewModel: RepoDetailsViewModel) {
+        self.viewModel = viewModel
+        super .init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
 }
