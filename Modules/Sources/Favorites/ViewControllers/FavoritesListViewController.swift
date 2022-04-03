@@ -67,7 +67,7 @@ public class FavoritesListViewController: UIViewController {
     // MARK: - Private methods
     
     private func configureNavigationBar() {
-        title = "Favoritos"
+        title = "Favorites"
         
         navigationController?.navigationBar.prefersLargeTitles = true
     }
@@ -121,13 +121,26 @@ public class FavoritesListViewController: UIViewController {
     
 }
 
-extension FavoritesListViewController: UITableViewDelegate {
+extension FavoritesListViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        viewModel.state == .done ? viewModel.favRepositories.count : 0
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: RepositoryTableViewCell.identifier, for: indexPath) as? RepositoryTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        let favRepository = viewModel.favRepositories[indexPath.row]
+        cell.configure(with: favRepository)
+        
+        return cell
+    }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         let favRepositorie = viewModel.favRepositories[indexPath.row]
         didSelectFavoriteRepository(favRepositorie)
-        
     }
     
     public func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
@@ -139,39 +152,13 @@ extension FavoritesListViewController: UITableViewDelegate {
             tableView.beginUpdates()
             
             let favRepoToDelete = viewModel.favRepositories[indexPath.row]
-            viewModel.deleteFavoriteRepo(id: favRepoToDelete.id!.int64Value)
+            viewModel.deleteFavoriteRepo(id: favRepoToDelete.id.int64Value)
             searchFavorites()
             
             tableView.deleteRows(at: [indexPath], with: .fade)
             
             tableView.endUpdates()
         }
-    }
-    
-}
-
-extension FavoritesListViewController: UITableViewDataSource {
-    
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.state == .done ? viewModel.favRepositories.count : 0
-    }
-    
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: RepositoryTableViewCell.identifier, for: indexPath) as? RepositoryTableViewCell else {
-            return UITableViewCell()
-        }
-        
-        //random id for testing
-        let randomInt = Int.random(in: 0..<999999)
-        
-        let favRepositorie = viewModel.favRepositories[indexPath.row]
-        
-        //have to change this after finishing defaultRepository protocol
-        let repo = Repository( id: randomInt, name: favRepositorie.title ?? "", description: favRepositorie.desc ?? "")
-        
-        cell.configure(with: repo)
-        
-        return cell
     }
 }
 
