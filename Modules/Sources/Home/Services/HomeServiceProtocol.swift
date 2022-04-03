@@ -2,7 +2,7 @@ import Foundation
 import Core
 
 public protocol HomeServiceProtocol {
-    func fetchRepositories(searchText: String, completion: (Result<[Repository], Error>) -> Void)
+    func fetchRepositories(searchText: String, completion: @escaping (Result<[Repository], Error>) -> Void)
 }
 
 #if DEBUG
@@ -26,17 +26,44 @@ struct DummyHomeService: HomeServiceProtocol {
                 .init(
                     id: 1,
                     name: "Repo 1",
-                    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    owner: .init(
+                        avatarURL: ""
+                    ),
+                    watchers: 0,
+                    createdAt: "",
+                    license: .init(
+                        name: "MIT License",
+                        url: ""
+                    )
                 ),
                 .init(
                     id: 1,
                     name: "Repo 2",
-                    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    owner: .init(
+                        avatarURL: ""
+                    ),
+                    watchers: 0,
+                    createdAt: "",
+                    license: .init(
+                        name: "MIT License",
+                        url: ""
+                    )
                 ),
                 .init(
                     id: 2,
                     name: "Repo 3",
-                    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    owner: .init(
+                        avatarURL: ""
+                    ),
+                    watchers: 0,
+                    createdAt: "",
+                    license: .init(
+                        name: "MIT License",
+                        url: ""
+                    )
                 )
             ]
             completion(.success(repos))
