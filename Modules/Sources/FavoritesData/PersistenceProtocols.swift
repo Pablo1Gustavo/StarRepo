@@ -16,7 +16,7 @@ protocol FetchFavoriteReposProtocol {
 
 ///Protocol for adding data in FavoritesRepos
 protocol AddFavoriteRepoProtocol {
-    func addFavoriteRepo(id: Int, title: String, desc: String, imageURL: String)
+    func addFavoriteRepo(id: Int, name: String, desc: String, imageURL: String)
     func saveData(onCompletionHandler: completion)
 }
 
