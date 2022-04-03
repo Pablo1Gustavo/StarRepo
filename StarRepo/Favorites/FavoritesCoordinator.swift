@@ -15,7 +15,7 @@ final class FavoritesCoordinator: Coordinator {
     }
     
     func start() {
-        let viewModel = FavoritesListViewModel(fetchService: Persistence(), deleteService: Persistence())
+        let viewModel = FavoritesListViewModel(fetchService: Persistence.shared, deleteService: Persistence.shared)
         
         let viewController = FavoritesListViewController(
             viewModel: viewModel,
