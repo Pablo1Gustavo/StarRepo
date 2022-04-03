@@ -10,7 +10,7 @@ public enum FavError: Error {
 }
 
 ///Protocol for updating data from FavoritesRepos
-protocol FetchFavoriteReposProtocol {
+public protocol FetchFavoriteReposProtocol {
     func fetchFavoriteRepos(onCompletionHandler: (Result<[FavRepo], FavError>) -> Void)
 }
 
@@ -21,6 +21,6 @@ protocol AddFavoriteRepoProtocol {
 }
 
 ///Protocol for deleting data from FavoritesRepos
-protocol DeleteFavoriteRepoProtocol {
+public protocol DeleteFavoriteRepoProtocol {
     func deleteFavoriteRepo(id: Int64, onCompletionHandler: completion)
 }

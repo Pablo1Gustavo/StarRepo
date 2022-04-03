@@ -1,5 +1,7 @@
 import UIKit
 import Favorites
+import FavoritesData
+import Core
 
 final class FavoritesCoordinator: Coordinator {
     
@@ -13,13 +15,22 @@ final class FavoritesCoordinator: Coordinator {
     }
     
     func start() {
-        let viewModel = FavoritesListViewModel()
+        let viewModel = FavoritesListViewModel(fetchService: Persistence(), deleteService: Persistence())
         
         let viewController = FavoritesListViewController(
-            viewModel: viewModel
+            viewModel: viewModel,
+            didSelectFavoriteRepository: { favRepositorie in
+                self.pushRepoDetailsViewController(repository: favRepositorie)
+            }
         )
         
         rootViewController.setViewControllers([viewController], animated: false)
+    }
+    
+    func pushRepoDetailsViewController(repository: FavRepo) {
+        let viewController = UIViewController()
+        viewController.view.backgroundColor = .systemPink
+        rootViewController.pushViewController(viewController, animated: true)
     }
     
 }
