@@ -1,6 +1,7 @@
 import UIKit
+import DeveloperTeamList
 
-final class AppContributorsCoordinator: Coordinator {
+final class DeveloperTeamCoordinator: Coordinator {
     
     typealias UIViewControllerType = UINavigationController
     
@@ -12,8 +13,13 @@ final class AppContributorsCoordinator: Coordinator {
     }
     
     func start() {
-        let viewController = UIViewController()
-        viewController.view.backgroundColor = .systemGray4
+        let viewModel = DeveloperTeamListViewModel(
+            developerListService: DeveloperTeamListService()
+        )
+        
+        let viewController = DeveloperTeamListViewController(
+            viewModel: viewModel
+        )
         
         rootViewController.setViewControllers([viewController], animated: false)
     }
