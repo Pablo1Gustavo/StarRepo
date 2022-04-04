@@ -19,7 +19,8 @@ let package = Package(
                 "Networking",
                 "Home",
                 "Favorites",
-                "DeveloperTeamList"
+                "DeveloperTeamList",
+                "DeveloperDetails"
             ]),
     ],
     dependencies: [
@@ -72,5 +73,11 @@ let package = Package(
         .testTarget(
             name: "DeveloperTeamListTests",
             dependencies: ["DeveloperTeamList"]),
+        .target(
+            name: "DeveloperDetails",
+            dependencies: ["Core", "Form", "Extensions", "Kingfisher"]),
+        .testTarget(
+            name: "DeveloperDetailsTests",
+            dependencies: ["DeveloperDetails"]),
     ]
 )

@@ -4,7 +4,7 @@ open class FormViewController: UIViewController {
     
     open weak var delegate: FormDelegate?
     
-    private(set) lazy var tableView: UITableView = {
+    private(set) public lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.dataSource = self
         tableView.delegate = self

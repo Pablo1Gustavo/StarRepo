@@ -1,9 +1,12 @@
 import UIKit
 import Extensions
+import Core
 
 public class DeveloperTeamListViewController: UIViewController {
 
     private var viewModel: DeveloperTeamListViewModel
+    
+    public var didSelectDeveloper: (Developer) -> Void
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -15,8 +18,12 @@ public class DeveloperTeamListViewController: UIViewController {
     
     // MARK: - Initializers
     
-    public init(viewModel: DeveloperTeamListViewModel) {
+    public init(
+        viewModel: DeveloperTeamListViewModel,
+        didSelectDeveloper: @escaping (Developer) -> Void
+    ) {
         self.viewModel = viewModel
+        self.didSelectDeveloper = didSelectDeveloper
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -94,6 +101,11 @@ extension DeveloperTeamListViewController: UITableViewDataSource, UITableViewDel
         return cell
     }
     
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let dev = viewModel.developers[indexPath.row]
+        didSelectDeveloper(dev)
+    }
+    
 }
 
 #if DEBUG
@@ -119,7 +131,8 @@ struct DeveloperTeamListViewControllerPreviews: PreviewProvider {
             )
             
             let viewController = DeveloperTeamListViewController(
-                viewModel: viewModel
+                viewModel: viewModel,
+                didSelectDeveloper: { _ in }
             )
             
             let navController = UINavigationController(rootViewController: viewController)

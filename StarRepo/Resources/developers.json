@@ -2,7 +2,7 @@
     {
         "id": 0,
         "name": "Felipe Israel de Oliveira Vidal",
-        "about_me": "",
+        "about_me": "Apaixonado pelo mundo da tecnologia em especial, desenvolvimento de apps para o escossistema da Apple 😍",
         "occupation": "iOS Developer",
         "profile_image_url": "https://github.com/Pablo1Gustavo/StarRepo/blob/feature/repo-details/devs_profile_images/felipe_vidal.jpg?raw=true",
         "email": "felipeisra.vidal@gmail.com",
@@ -16,7 +16,7 @@
     {
         "id": 1,
         "name": "Matheus Campos Paulino",
-        "about_me": "",
+        "about_me": "Entusiasta da área de tecnologia, apaixonado por programação e pelas tecnologias que envolvem o desenvolvimento web/mobile.",
         "occupation": "iOS Developer",
         "profile_image_url": "https://github.com/Pablo1Gustavo/StarRepo/blob/feature/repo-details/devs_profile_images/matheus_campos_paulino.png?raw=true",
         "email": "devcodecampos@gmail.com",
@@ -30,7 +30,7 @@
     {
         "id": 2,
         "name": "Victor Hugo Nunes da Silva",
-        "about_me": "",
+        "about_me": "Desenvolvedor low-code na Accenture Brasil, estudante e aspirante a desenvolvedor mobile.",
         "occupation": "iOS Developer",
         "profile_image_url": "https://github.com/Pablo1Gustavo/StarRepo/blob/feature/repo-details/devs_profile_images/victor_hugo_silva.jpg?raw=true",
         "email": "victorugons@gmail.com",
@@ -58,7 +58,7 @@
     {
         "id": 4,
         "name": "Lucas de Castro Souza",
-        "about_me": "",
+        "about_me": "Lucas é apaixonado por esportes, jogos, design e tecnologia. Em sua jornada como desenvolvedor, trabalhou na Upnid e na Fortini e possui conhecimentos em HTML, CSS, JavaScript, Git, React e Swift",
         "occupation": "iOS Developer",
         "profile_image_url": "https://github.com/Pablo1Gustavo/StarRepo/blob/feature/repo-details/devs_profile_images/lucas_castro.png?raw=true",
         "email": "lucas_08_castro@hotmail.com",

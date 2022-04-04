@@ -1,7 +1,12 @@
 import Foundation
+import Core
 
 public final class DeveloperDetailsViewModel {
     
-    public init() {}
+    private(set) var developer: Developer
+    
+    public init(developer: Developer) {
+        self.developer = developer
+    }
     
 }
