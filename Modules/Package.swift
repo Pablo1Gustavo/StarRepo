@@ -70,7 +70,7 @@ let package = Package(
         ),
         .target(
             name: "RepoDetails",
-            dependencies: []),
+            dependencies: ["Form"]),
         .testTarget(
             name: "RepoDetailsTests",
             dependencies: ["RepoDetails"]),
