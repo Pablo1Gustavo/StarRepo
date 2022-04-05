@@ -1,7 +1,7 @@
 import Foundation
 import Networking
 
-struct DetailsRequest: URLRequestProtocol {
+struct RepoDetailsRequest: URLRequestProtocol {
     
     private var id: Int
     
