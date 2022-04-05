@@ -8,6 +8,7 @@ public struct Repository: Decodable, RepositoryProtocol {
     public let watchers: Int
     public let createdAt: String
     public let license: License?
+    public let url: String
     
     public var imageURL: String? {
         get {
@@ -22,7 +23,8 @@ public struct Repository: Decodable, RepositoryProtocol {
         owner: Owner?,
         watchers: Int,
         createdAt: String,
-        license: License?
+        license: License?,
+        url: String
     ) {
         self.id = id
         self.name = name
@@ -31,6 +33,7 @@ public struct Repository: Decodable, RepositoryProtocol {
         self.watchers = watchers
         self.createdAt = createdAt
         self.license = license
+        self.url = url
     }
     
     enum CodingKeys: String, CodingKey {
@@ -41,18 +44,22 @@ public struct Repository: Decodable, RepositoryProtocol {
         case watchers
         case createdAt = "created_at"
         case license
+        case url = "html_url"
     }
 }
 
 public struct Owner: Decodable {
     public let avatarURL: String?
+    public let login: String
     
-    public init(avatarURL: String) {
+    public init(avatarURL: String, login: String) {
         self.avatarURL = avatarURL
+        self.login = login
     }
     
     enum CodingKeys: String, CodingKey {
         case avatarURL = "avatar_url"
+        case login
     }
 }
 
@@ -75,42 +82,48 @@ public extension Repository {
                 name: "Repo 1",
                 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                 owner: .init(
-                    avatarURL: ""
+                    avatarURL: "",
+                    login: "login"
                 ),
                 watchers: 0,
                 createdAt: "",
                 license: .init(
                     name: "MIT License",
                     url: ""
-                )
+                ),
+                url: "https://www.github.com/"
             ),
             .init(
                 id: 1,
                 name: "Repo 2",
                 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                 owner: .init(
-                    avatarURL: ""
+                    avatarURL: "",
+                    login: "login"
                 ),
                 watchers: 0,
                 createdAt: "",
                 license: .init(
                     name: "MIT License",
                     url: ""
-                )
+                ),
+                url: "https://www.github.com/"
             ),
             .init(
                 id: 2,
                 name: "Repo 3",
                 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                 owner: .init(
-                    avatarURL: ""
+                    avatarURL: "",
+                    login: "login"
                 ),
                 watchers: 0,
                 createdAt: "",
                 license: .init(
                     name: "MIT License",
                     url: ""
-                )
+                ),
+                url: "https://www.github.com/"
             )
         ]
     }

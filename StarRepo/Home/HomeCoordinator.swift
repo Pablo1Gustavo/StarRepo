@@ -1,6 +1,7 @@
 import UIKit
 import Home
 import Core
+import RepoDetails
 
 final class HomeCoordinator: Coordinator {
     
@@ -29,8 +30,8 @@ final class HomeCoordinator: Coordinator {
     }
     
     func pushRepoDetailsViewController(repository: Repository) {
-        let viewController = UIViewController()
-        viewController.view.backgroundColor = .systemPink
+        let viewModel = RepoDetailsViewModel(repository: repository)
+        let viewController = RepoDetailsViewController(viewModel: viewModel)
         rootViewController.pushViewController(viewController, animated: true)
     }
 }
