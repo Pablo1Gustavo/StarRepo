@@ -2,6 +2,7 @@ import UIKit
 import Form
 import Extensions
 import Kingfisher
+import MessageUI
 
 public class DeveloperDetailsViewController: FormViewController {
     
@@ -105,17 +106,26 @@ public class DeveloperDetailsViewController: FormViewController {
                     TitleDescriptionRow(
                         image: .init(systemName: "envelope"),
                         title: "Email",
-                        description: model.email
+                        description: model.email,
+                        action: { [weak self] in
+                            self?.sendEmail(for: model.email)
+                        }
                     ),
                     TitleDescriptionRow(
                         image: .init(systemName: "globe"),
                         title: "LinkedIn",
-                        description: model.social.linkedinURL
+                        description: model.social.linkedinURL,
+                        action: { [weak self] in
+                            self?.performURL(for: model.social.linkedinURL)
+                        }
                     ),
                     TitleDescriptionRow(
                         image: .init(systemName: "globe"),
                         title: "GitHub",
-                        description: model.social.githubURL
+                        description: model.social.githubURL,
+                        action: { [weak self] in
+                            self?.performURL(for: model.social.githubURL)
+                        }
                     ),
                     TitleDescriptionRow(
                         image: .init(systemName: "globe"),
@@ -126,13 +136,46 @@ public class DeveloperDetailsViewController: FormViewController {
                                 config.descriptionFont = .preferredFont(for: .body, weight: .regular)
                                 config.descriptionTextColor = .systemRed
                             }
+                        },
+                        action: { [weak self] in
+                            if let url = model.social.twitterURL {
+                                self?.performURL(for: url)
+                            }
                         }
                     )
                 ]
             )
         ]
     }
+    
+    private func sendEmail(for email: String) {
+        if MFMailComposeViewController.canSendMail() {
+            let mailComposeViewController = MFMailComposeViewController()
+            mailComposeViewController.delegate = self
+            mailComposeViewController.setToRecipients([email])
+            
+            present(mailComposeViewController, animated: true, completion: nil)
+        } else {
+            print("You cannot send an email")
+        }
+    }
+    
+    private func performURL(for urlString: String) {
+        if let url = URL(string: urlString) {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+    }
 
+}
+
+extension DeveloperDetailsViewController: MFMailComposeViewControllerDelegate, UINavigationControllerDelegate {
+    
+    public func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 extension DeveloperDetailsViewController: FormDelegate {

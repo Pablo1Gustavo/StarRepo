@@ -16,9 +16,18 @@ public struct ButtonRow: FormRow {
     
     public var configuration: Configuration = Configuration()
     
-    public init(image: UIImage? = nil, title: String, configurationHandler: ((inout RowConfigration) -> Void)? = nil) {
+    public var action: (() -> Void)?
+    
+    public init(
+        image: UIImage? = nil,
+        title: String,
+        configurationHandler: ((inout RowConfigration) -> Void)? = nil,
+        action: (() -> Void)? = nil
+    ) {
         self.image = image
         self.title = title
+        
+        self.action = action
         
         configurationHandler?(&configuration)
     }

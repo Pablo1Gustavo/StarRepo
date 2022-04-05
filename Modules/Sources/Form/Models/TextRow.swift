@@ -17,9 +17,18 @@ public struct TextRow: FormRow {
     
     public var configuration: Configuration = Configuration()
     
-    public init(image: UIImage? = nil, text: String, configurationHandler: ((inout RowConfigration) -> Void)? = nil) {
+    public var action: (() -> Void)?
+    
+    public init(
+        image: UIImage? = nil,
+        text: String,
+        configurationHandler: ((inout RowConfigration) -> Void)? = nil,
+        action: (() -> Void)? = nil
+    ) {
         self.image = image
         self.text = text
+        
+        self.action = action
         
         configurationHandler?(&configuration)
     }

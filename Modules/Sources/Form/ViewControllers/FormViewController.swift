@@ -69,6 +69,11 @@ extension FormViewController: UITableViewDataSource, UITableViewDelegate {
         return sections?[section].title
     }
     
+    public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        let sections = delegate?.buidSections()
+        return sections?[section].footer
+    }
+    
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sections = delegate?.buidSections()
         return sections?[section].rows.count ?? 0
@@ -109,6 +114,24 @@ extension FormViewController: UITableViewDataSource, UITableViewDelegate {
         default:
             return UITableViewCell()
         }
+    }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let section = delegate?.buidSections() else { return }
+        let row = section[indexPath.section].rows[indexPath.row]
+        
+        switch row.self {
+        case let formRow where formRow is TitleDescriptionRow:
+            (formRow as! TitleDescriptionRow).action?()
+        case let formRow where formRow is TextRow:
+            (formRow as! TextRow).action?()
+        case let formRow where formRow is ButtonRow:
+            (formRow as! ButtonRow).action?()
+        default:
+            break
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
 }
