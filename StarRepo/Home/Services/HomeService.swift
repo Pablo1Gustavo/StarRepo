@@ -4,7 +4,7 @@ import Home
 import Networking
 
 struct HomeService: HomeServiceProtocol {
-    
+
     func fetchRepositories(searchText: String, completion: @escaping (Result<[Repository], Error>) -> Void) {
         let request = HomeRequest(language: searchText, stars: 5)
         NetworkManager.shared.request(of: RepositoriesResponse.self, request: request) { result in

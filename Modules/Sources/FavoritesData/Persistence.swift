@@ -45,12 +45,12 @@ extension Persistence: FetchFavoriteReposProtocol {
 
 extension Persistence: AddFavoriteRepoProtocol {
     
-    public func addFavoriteRepo(id: Int, title: String, desc: String, imageURL: String) {
+    public func addFavoriteRepo(id: Int, name: String, desc: String, imageURL: String) {
         let context = container.viewContext
         
         let favRepo = FavRepo(context: context)
         
-        favRepo.title = title
+        favRepo.name = name
         favRepo.desc = desc
         favRepo.id = NSNumber(value: id)
         favRepo.imageURL = imageURL
@@ -65,7 +65,7 @@ extension Persistence: AddFavoriteRepoProtocol {
         }
     }
     
-    func saveData(onCompletionHandler: completion) {
+    public func saveData(onCompletionHandler: completion) {
         let context = container.viewContext
         
         do {
@@ -79,7 +79,9 @@ extension Persistence: AddFavoriteRepoProtocol {
 }
 
 extension Persistence: DeleteFavoriteRepoProtocol {
+
     public func deleteFavoriteRepo(id: Int64, onCompletionHandler: completion) {
+
         let context = container.viewContext
         
         let predicate = NSPredicate(format: "id == %@", "\(id)")
@@ -97,12 +99,19 @@ extension Persistence: DeleteFavoriteRepoProtocol {
                 context.delete(entityDelete)
                 
                 onCompletionHandler(.success("Delete Success"))
+                
+                saveData { result in
+                    switch result {
+                    case .success(let res):
+                        print(res)
+                    case.failure(let error):
+                        print(error)
+                    }
+                }
             }
         } catch {
             onCompletionHandler(.failure(.failDeletingFavorite))
         }
     }
     
-    
 }
-

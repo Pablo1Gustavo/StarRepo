@@ -1,10 +1,10 @@
 import UIKit
 
-public class FormViewController: UIViewController {
+open class FormViewController: UIViewController {
     
-    private var viewModel: FormViewModel
+    open weak var delegate: FormDelegate?
     
-    private(set) lazy var tableView: UITableView = {
+    private(set) public lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.dataSource = self
         tableView.delegate = self
@@ -12,20 +12,9 @@ public class FormViewController: UIViewController {
         return tableView
     }()
     
-    // MARK: - Initializers
-    
-    public init(viewModel: FormViewModel) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     // MARK: - Lifecycle
 
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         
         registerCells()
@@ -58,14 +47,12 @@ public class FormViewController: UIViewController {
     
     // MARK: - Public methods
     
-    public func setSections(_ sections: [FormSection]) {
-        viewModel.setSections(sections)
-        tableView.reloadData()
+    public func insertSection(at index: Int, animated: Bool = true) {
+        tableView.insertSections(IndexSet(integer: index), with: animated ? .automatic : .none)
     }
     
-    public func insertSection(_ section: FormSection, at index: Int, animated: Bool = true) {
-        viewModel.insertSection(section, at: index)
-        tableView.insertSections(IndexSet(integer: index), with: animated ? .automatic : .none)
+    public func insertRow(at indexPath: IndexPath, animated: Bool = true) {
+        tableView.insertRows(at: [indexPath], with: animated ? .automatic : .none)
     }
 
 }
@@ -73,19 +60,31 @@ public class FormViewController: UIViewController {
 extension FormViewController: UITableViewDataSource, UITableViewDelegate {
     
     public func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel.sections.count
+        let sections = delegate?.buidSections()
+        return sections?.count ?? 0
     }
     
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return viewModel.sections[section].title
+        let sections = delegate?.buidSections()
+        return sections?[section].title
+    }
+    
+    public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        let sections = delegate?.buidSections()
+        return sections?[section].footer
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.sections[section].rows.count
+        let sections = delegate?.buidSections()
+        return sections?[section].rows.count ?? 0
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let row = viewModel.sections[indexPath.section].rows[indexPath.row]
+        guard let section = delegate?.buidSections() else {
+            return UITableViewCell()
+        }
+        
+        let row = section[indexPath.section].rows[indexPath.row]
         
         switch row.self {
         case let formRow where formRow is TitleDescriptionRow:
@@ -117,6 +116,24 @@ extension FormViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let section = delegate?.buidSections() else { return }
+        let row = section[indexPath.section].rows[indexPath.row]
+        
+        switch row.self {
+        case let formRow where formRow is TitleDescriptionRow:
+            (formRow as! TitleDescriptionRow).action?()
+        case let formRow where formRow is TextRow:
+            (formRow as! TextRow).action?()
+        case let formRow where formRow is ButtonRow:
+            (formRow as! ButtonRow).action?()
+        default:
+            break
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
 }
 
 #if DEBUG
@@ -133,67 +150,123 @@ struct HomeViewControllerPreviews: PreviewProvider {
         }
     }
     
+    class FormProtocol: FormDelegate {
+        func buidSections() -> [FormSection] {
+            return [
+                FormSection(
+                    rows: [
+                        TextRow(
+                            image: .init(systemName: "globe"),
+                            text: "Test"
+                        )
+                    ]
+                ),
+                FormSection(
+                    title: "Section 1",
+                    rows: [
+                        TextRow(
+                            image: .init(systemName: ""),
+                            text: "Test"
+                        )
+                    ]
+                ),
+                FormSection(
+                    title: "Actions",
+                    rows: [
+                        ButtonRow(
+                            image: .init(systemName: "link"),
+                            title: "Go To"
+                        )
+                    ]
+                ),
+                FormSection(
+                    title: "Title Description",
+                    rows: [
+                        TitleDescriptionRow(
+                            image: .init(systemName: "globe"),
+                            title: "Title",
+                            description: "Description"
+                        ),
+                        TitleDescriptionRow(
+                            title: "Title",
+                            description: "Description"
+                        ),
+                        TitleDescriptionRow(
+                            title: "Title",
+                            description: "Description",
+                            configurationHandler: { config in
+                                config.titleTextColor = .systemGreen
+                                config.descriptionTextColor = .systemBrown
+                            }
+                        )
+                    ]
+                )
+            ]
+        }
+    }
+    
     struct ContainerPreview: UIViewControllerRepresentable {
         typealias UIViewControllerType = UINavigationController
         
         func makeUIViewController(context: Context) -> UIViewControllerType {
-            let viewModel = FormViewModel(
-                sections: [
-                    FormSection(
-                        rows: [
-                            TextRow(
-                                image: .init(systemName: "globe"),
-                                text: "Test"
-                            )
-                        ]
-                    ),
-                    FormSection(
-                        title: "Section 1",
-                        rows: [
-                            TextRow(
-                                image: .init(systemName: ""),
-                                text: "Test"
-                            )
-                        ]
-                    ),
-                    FormSection(
-                        title: "Actions",
-                        rows: [
-                            ButtonRow(
-                                image: .init(systemName: "link"),
-                                title: "Go To"
-                            )
-                        ]
-                    ),
-                    FormSection(
-                        title: "Title Description",
-                        rows: [
-                            TitleDescriptionRow(
-                                image: .init(systemName: "globe"),
-                                title: "Title",
-                                description: "Description"
-                            ),
-                            TitleDescriptionRow(
-                                title: "Title",
-                                description: "Description"
-                            ),
-                            TitleDescriptionRow(
-                                title: "Title",
-                                description: "Description",
-                                configurationHandler: { config in
-                                    config.titleTextColor = .systemGreen
-                                    config.descriptionTextColor = .systemBrown
-                                }
-                            )
-                        ]
-                    )
-                ]
-            )
+//            let viewModel = FormViewModel(
+//                sections: [
+//                    FormSection(
+//                        rows: [
+//                            TextRow(
+//                                image: .init(systemName: "globe"),
+//                                text: "Test"
+//                            )
+//                        ]
+//                    ),
+//                    FormSection(
+//                        title: "Section 1",
+//                        rows: [
+//                            TextRow(
+//                                image: .init(systemName: ""),
+//                                text: "Test"
+//                            )
+//                        ]
+//                    ),
+//                    FormSection(
+//                        title: "Actions",
+//                        rows: [
+//                            ButtonRow(
+//                                image: .init(systemName: "link"),
+//                                title: "Go To"
+//                            )
+//                        ]
+//                    ),
+//                    FormSection(
+//                        title: "Title Description",
+//                        rows: [
+//                            TitleDescriptionRow(
+//                                image: .init(systemName: "globe"),
+//                                title: "Title",
+//                                description: "Description"
+//                            ),
+//                            TitleDescriptionRow(
+//                                title: "Title",
+//                                description: "Description"
+//                            ),
+//                            TitleDescriptionRow(
+//                                title: "Title",
+//                                description: "Description",
+//                                configurationHandler: { config in
+//                                    config.titleTextColor = .systemGreen
+//                                    config.descriptionTextColor = .systemBrown
+//                                }
+//                            )
+//                        ]
+//                    )
+//                ]
+//            )
             
-            let viewController = FormViewController(
-                viewModel: viewModel
-            )
+            let viewController = FormViewController()
             viewController.title = "Form"
+            
+            let prot = FormProtocol()
+            viewController.delegate = prot
             
             let navController = UINavigationController(rootViewController: viewController)
             

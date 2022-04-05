@@ -1,6 +1,7 @@
 import UIKit
 import Extensions
 import Core
+import Kingfisher
 
 public class RepositoryTableViewCell: UITableViewCell {
     
@@ -83,9 +84,13 @@ public class RepositoryTableViewCell: UITableViewCell {
     
     // MARK: - Public methods
     
-    public func configure(with model: Repository) {
+    public func configure(with model: RepositoryProtocol) {
         self.nameLabel.text = model.name
-        self.descriptionLabel.text = model.description
+        self.descriptionLabel.text = model.desc
+        
+        if let urlString = model.imageURL, let url = URL(string: urlString) {
+            thumbImageView.kf.setImage(with: url)
+        }
     }
 
 }

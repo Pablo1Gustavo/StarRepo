@@ -19,12 +19,15 @@ let package = Package(
                 "Networking",
                 "Home",
                 "Favorites",
-                "RepoDetails"
+                "RepoDetails",
+                "DeveloperTeamList",
+                "DeveloperDetails"
             ]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
+        .package(url: "https://github.com/onevcat/Kingfisher.git", from: .init(7, 0, 0))
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -37,7 +40,7 @@ let package = Package(
             dependencies: []),
         .target(
             name: "CoreUI",
-            dependencies: ["Extensions"]),
+            dependencies: ["Extensions", "Kingfisher"]),
         .target(name: "Networking",
                dependencies: []),
         .target(
@@ -54,7 +57,7 @@ let package = Package(
             dependencies: ["Home"]),
         .target(
             name: "Favorites",
-            dependencies: ["FavoritesData"]),
+            dependencies: ["FavoritesData", "Core", "CoreUI"]),
         .testTarget(
             name: "FavoritesTests",
             dependencies: ["Favorites"]),
@@ -71,5 +74,17 @@ let package = Package(
         .testTarget(
             name: "RepoDetailsTests",
             dependencies: ["RepoDetails"]),
+        .target(
+            name: "DeveloperTeamList",
+            dependencies: ["Core", "Extensions", "Kingfisher"]),
+        .testTarget(
+            name: "DeveloperTeamListTests",
+            dependencies: ["DeveloperTeamList"]),
+        .target(
+            name: "DeveloperDetails",
+            dependencies: ["Core", "Form", "Extensions", "Kingfisher"]),
+        .testTarget(
+            name: "DeveloperDetailsTests",
+            dependencies: ["DeveloperDetails"]),
     ]
 )

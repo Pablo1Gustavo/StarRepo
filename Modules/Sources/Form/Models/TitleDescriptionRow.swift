@@ -21,10 +21,19 @@ public struct TitleDescriptionRow: FormRow {
     
     public var configuration: Configuration = Configuration()
     
-    public init(image: UIImage? = nil, title: String, description: String, configurationHandler: ((inout RowConfigration) -> Void)? = nil) {
+    public var action: (() -> Void)?
+    
+    public init(
+        image: UIImage? = nil,
+        title: String,
+        description: String,
+        configurationHandler: ((inout RowConfigration) -> Void)? = nil,
+        action: (() -> Void)? = nil
+    ) {
         self.image = image
         self.title = title
         self.description = description
+        self.action = action
         
         configurationHandler?(&configuration)
     }
