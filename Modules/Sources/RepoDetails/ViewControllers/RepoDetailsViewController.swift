@@ -60,10 +60,23 @@ public class RepoDetailsViewController: FormViewController{
     
     private func configureNavigationBar() {
         navigationItem.largeTitleDisplayMode = .never
+        
+        let favoriteButton = UIBarButtonItem(image: UIImage.init(systemName: "star"), style: .plain, target: self, action: #selector(handleFavoriteButton))
+        favoriteButton.tintColor = .systemPurple
+        
+        navigationItem.rightBarButtonItem = favoriteButton
+    }
+    
+    @objc
+    private func handleFavoriteButton() {
+        
+        viewModel.addFavoriteRepo(viewModel.repoDetails!)
+        
     }
     
     private func configure(with model: Repository) {
         title = model.name
+        
         if let urlString = model.owner?.avatarURL, let url = URL(string: urlString) {
             thumbnailImageView.kf.setImage(with: url)
         }
@@ -123,15 +136,15 @@ public class RepoDetailsViewController: FormViewController{
                         action: {[weak self] in
                             self?.performURL(for: model.url)
                         } ),
-                    ButtonRow(
-                        image: .init(systemName: "star", withConfiguration: symbolConfiguration),
-                        title: "",
-                        configurationHandler: { config in
-                            config.tintColor = .systemPurple
-                        },
-                        action: {[weak self] in
-                            self?.handleFavoriteButton()
-                        } )
+//                    ButtonRow(
+//                        image: .init(systemName: "star", withConfiguration: symbolConfiguration),
+//                        title: "",
+//                        configurationHandler: { config in
+//                            config.tintColor = .systemPurple
+//                        },
+//                        action: {[weak self] in
+//                            self?.handleFavoriteButton()
+//                        } )
                 ]
             ),
         ]
@@ -145,9 +158,9 @@ public class RepoDetailsViewController: FormViewController{
         }
     }
     
-    private func handleFavoriteButton() {
-        print("Favoritei")
-    }
+//    private func handleFavoriteButton() {
+//        print("Favoritei")
+//    }
     
 }
 
