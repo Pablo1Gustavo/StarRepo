@@ -10,10 +10,10 @@ struct HomeRequest: URLRequestProtocol {
     }
     
     var baseURL: String {
-        return Constants.githubBaseURL
+        return "\(Constants.githubBaseURL)search/repositories"
     }
     
-    var path: String {
+    var path: String? {
         return "q=language:\(self.language)&sort=stars&order=desc"
     }
     

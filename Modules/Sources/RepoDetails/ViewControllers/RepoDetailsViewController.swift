@@ -146,7 +146,7 @@ public class RepoDetailsViewController: FormViewController{
     }
     
     private func handleFavoriteButton() {
-        print("Clique na estrela")
+        print("Favoritei")
     }
     
 }
