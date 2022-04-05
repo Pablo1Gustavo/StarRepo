@@ -18,7 +18,9 @@ let package = Package(
             targets: [
                 "Networking",
                 "Home",
-                "Favorites"
+                "Favorites",
+                "DeveloperTeamList",
+                "DeveloperDetails"
             ]),
     ],
     dependencies: [
@@ -65,5 +67,17 @@ let package = Package(
                 .copy("FavoritesRepos.xcdatamodeld")
             ]
         ),
+        .target(
+            name: "DeveloperTeamList",
+            dependencies: ["Core", "Extensions", "Kingfisher"]),
+        .testTarget(
+            name: "DeveloperTeamListTests",
+            dependencies: ["DeveloperTeamList"]),
+        .target(
+            name: "DeveloperDetails",
+            dependencies: ["Core", "Form", "Extensions", "Kingfisher"]),
+        .testTarget(
+            name: "DeveloperDetailsTests",
+            dependencies: ["DeveloperDetails"]),
     ]
 )

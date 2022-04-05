@@ -8,6 +8,8 @@ public protocol FormRow: FormRowBase {
     var image: UIImage? { get set }
     
     var configuration: RowConfigration { get set }
+    
+    var action: (() -> Void)? { get set }
 }
 
 public class FormRowConfiguration {

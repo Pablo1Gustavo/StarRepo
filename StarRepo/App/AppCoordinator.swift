@@ -30,10 +30,10 @@ final class AppCoordinator: Coordinator {
             tag: 1
         )
         
-        let appContributorsCoordinator = AppContributorsCoordinator(rootViewController: UINavigationController())
-        appContributorsCoordinator.start()
+        let developerTeamCoordinator = DeveloperTeamCoordinator(rootViewController: UINavigationController())
+        developerTeamCoordinator.start()
         
-        appContributorsCoordinator.rootViewController.tabBarItem = UITabBarItem(
+        developerTeamCoordinator.rootViewController.tabBarItem = UITabBarItem(
             title: "Contributors",
             image: .init(systemName: "person.3"),
             tag: 2
@@ -42,7 +42,7 @@ final class AppCoordinator: Coordinator {
         rootViewController.viewControllers = [
             homeCoordinator.rootViewController,
             favoritesCoordinator.rootViewController,
-            appContributorsCoordinator.rootViewController
+            developerTeamCoordinator.rootViewController
         ]
     }
     

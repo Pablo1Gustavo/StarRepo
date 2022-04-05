@@ -63,6 +63,10 @@ class FormRowTableViewCell<T: FormRow>: UITableViewCell {
             
             stackView.insertArrangedSubview(iconImageView, at: 0)
         }
+        
+        if model.action == nil {
+            selectionStyle = .none
+        }
     }
     
     open func loadView() {}

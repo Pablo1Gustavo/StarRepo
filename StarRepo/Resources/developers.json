@@ -1,0 +1,86 @@
+[
+    {
+        "id": 0,
+        "name": "Felipe Israel de Oliveira Vidal",
+        "about_me": "Apaixonado pelo mundo da tecnologia em especial, desenvolvimento de apps para o escossistema da Apple 😍",
+        "occupation": "iOS Developer",
+        "profile_image_url": "https://github.com/Pablo1Gustavo/StarRepo/blob/feature/repo-details/devs_profile_images/felipe_vidal.jpg?raw=true",
+        "email": "felipeisra.vidal@gmail.com",
+        "phone_number": "+5532985040880",
+        "social": {
+            "linkedin_url": "http://linkedin.com/in/felipeisrael",
+            "github_url": "http://github.com/felipeisraelvidal",
+            "twitter_url": null
+        }
+    },
+    {
+        "id": 1,
+        "name": "Matheus Campos Paulino",
+        "about_me": "Entusiasta da área de tecnologia, apaixonado por programação e pelas tecnologias que envolvem o desenvolvimento web/mobile.",
+        "occupation": "iOS Developer",
+        "profile_image_url": "https://github.com/Pablo1Gustavo/StarRepo/blob/feature/repo-details/devs_profile_images/matheus_campos_paulino.png?raw=true",
+        "email": "devcodecampos@gmail.com",
+        "phone_number": "+5581973012817",
+        "social": {
+            "linkedin_url": "https://www.linkedin.com/in/matheuscamposp/",
+            "github_url": "https://github.com/codecampos",
+            "twitter_url": null
+        }
+    },
+    {
+        "id": 2,
+        "name": "Victor Hugo Nunes da Silva",
+        "about_me": "Desenvolvedor low-code na Accenture Brasil, estudante e aspirante a desenvolvedor mobile.",
+        "occupation": "iOS Developer",
+        "profile_image_url": "https://github.com/Pablo1Gustavo/StarRepo/blob/feature/repo-details/devs_profile_images/victor_hugo_silva.jpg?raw=true",
+        "email": "victorugons@gmail.com",
+        "phone_number": "+5511967437405",
+        "social": {
+            "linkedin_url": "https://www.linkedin.com/in/victorugons/",
+            "github_url": "https://github.com/victorugons",
+            "twitter_url": null
+        }
+    },
+    {
+        "id": 3,
+        "name": "Pablo Gustavo Fernandes Maia",
+        "about_me": "",
+        "occupation": "iOS Developer",
+        "profile_image_url": "https://github.com/Pablo1Gustavo/StarRepo/blob/feature/repo-details/devs_profile_images/pablo_maia.jpg?raw=true",
+        "email": "pablo1gustavo.dev@gmail.com",
+        "phone_number": "+5584996958769",
+        "social": {
+            "linkedin_url": "https://www.linkedin.com/in/pablo-gustavo/",
+            "github_url": "https://github.com/Pablo1Gustavo",
+            "twitter_url": null
+        }
+    },
+    {
+        "id": 4,
+        "name": "Lucas de Castro Souza",
+        "about_me": "Lucas é apaixonado por esportes, jogos, design e tecnologia. Em sua jornada como desenvolvedor, trabalhou na Upnid e na Fortini e possui conhecimentos em HTML, CSS, JavaScript, Git, React e Swift",
+        "occupation": "iOS Developer",
+        "profile_image_url": "https://github.com/Pablo1Gustavo/StarRepo/blob/feature/repo-details/devs_profile_images/lucas_castro.png?raw=true",
+        "email": "lucas_08_castro@hotmail.com",
+        "phone_number": "+5521995414050",
+        "social": {
+            "linkedin_url": "https://www.linkedin.com/in/lucascastrorj/",
+            "github_url": "https://github.com/LuxksC",
+            "twitter_url": null
+        }
+    },
+    {
+        "id": 5,
+        "name": "Everton Santana",
+        "about_me": "",
+        "occupation": "iOS Developer",
+        "profile_image_url": "https://github.com/Pablo1Gustavo/StarRepo/blob/feature/repo-details/devs_profile_images/everton_santana.jpg?raw=true",
+        "email": "everton.santana@gmail.com",
+        "phone_number": "+5511937038112",
+        "social": {
+            "linkedin_url": "https://www.linkedin.com/in/evertoncsantana/",
+            "github_url": "https://github.com/ecsantana76",
+            "twitter_url": "https://twitter.com/ECdeSantana"
+        }
+    }
+]
