@@ -75,6 +75,7 @@ public struct License: Codable {
 
 #if DEBUG
 public extension Repository {
+    
     static var debugRepositories: [Repository] {
         return [
             .init(

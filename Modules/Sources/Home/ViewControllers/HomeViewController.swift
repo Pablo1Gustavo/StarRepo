@@ -40,6 +40,7 @@ public class HomeViewController: UIViewController {
         searchController.searchBar.placeholder = "Search for repos by language..."
         searchController.searchBar.searchBarStyle = .minimal
         searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
         return searchController
     }()
     
@@ -61,6 +62,7 @@ public class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         configureNavigationBar()
+        configureSortButton()
         registerCells()
         
         reloadView()
@@ -100,14 +102,78 @@ public class HomeViewController: UIViewController {
         navigationItem.hidesSearchBarWhenScrolling = false
     }
     
+    private func configureSortButton() {
+        if #available(iOS 14.0, *) {
+            let handler: (_ action: UIAction) -> Void = { [weak self] action in
+                switch action.identifier.rawValue {
+                case SortMode.ascending.rawValue:
+                    self?.sortAscending()
+                case SortMode.descending.rawValue:
+                    self?.sortDescending()
+                default:
+                    break
+                }
+            }
+            
+            let actions: [UIAction] = [
+                .init(
+                    title: SortMode.ascending.localizedTitle,
+                    identifier: UIAction.Identifier(SortMode.ascending.rawValue),
+                    state: viewModel.sortMode == .ascending ? .on : .off,
+                    handler: handler
+                ),
+                .init(
+                    title: SortMode.descending.localizedTitle,
+                    identifier: UIAction.Identifier(SortMode.descending.rawValue),
+                    state: viewModel.sortMode == .descending ? .on : .off,
+                    handler: handler
+                )
+            ]
+            
+            let menu = UIMenu(
+                title: "",
+                children: actions
+            )
+            
+            let sortBarButtonItem = UIBarButtonItem(
+                title: nil,
+                image: .init(systemName: "arrow.up.arrow.down.circle"),
+                menu: menu
+            )
+            
+            navigationItem.rightBarButtonItem = sortBarButtonItem
+        } else {
+            let sortBarButtonItem = UIBarButtonItem(
+                image: .init(systemName: "arrow.up.arrow.down.circle"),
+                style: .plain,
+                target: self,
+                action: #selector(presentSortActionSheet(_:))
+            )
+            
+            navigationItem.rightBarButtonItem = sortBarButtonItem
+        }
+    }
+    
     private func registerCells() {
         
         tableView.register(RepositoryTableViewCell.self, forCellReuseIdentifier: RepositoryTableViewCell.identifier)
         
     }
     
-    private func searchRepositories(language: String) {
-        viewModel.fetchRepos(searchText: language)
+    private func searchRepositories(language: String, sortMode: SortMode) {
+        viewModel.fetchRepos(searchText: language, sortMode: sortMode)
+    }
+    
+    private func sortAscending() {
+        guard let searchText = searchController.searchBar.text else { return }
+        viewModel.fetchRepos(searchText: searchText, sortMode: .ascending)
+        configureSortButton()
+    }
+    
+    private func sortDescending() {
+        guard let searchText = searchController.searchBar.text else { return }
+        viewModel.fetchRepos(searchText: searchText, sortMode: .descending)
+        configureSortButton()
     }
     
     private func reloadView() {
@@ -133,10 +199,45 @@ public class HomeViewController: UIViewController {
     }
     
     // MARK: - Public methods
+    
+    // MARK: - Actions
+    
+    @objc private func presentSortActionSheet(_ sender: UIBarButtonItem) {
+        let actionSheet = UIAlertController(
+            title: nil,
+            message: nil,
+            preferredStyle: .actionSheet
+        )
+        
+        let ascendingAction = UIAlertAction(
+            title: SortMode.ascending.localizedTitle,
+            style: .default
+        ) { [weak self] _ in
+            self?.sortAscending()
+        }
+        actionSheet.addAction(ascendingAction)
+        
+        let descendingAction = UIAlertAction(
+            title: SortMode.descending.localizedTitle,
+            style: .default
+        ) { [weak self] _ in
+            self?.sortAscending()
+        }
+        actionSheet.addAction(descendingAction)
+        
+        let cancelAction = UIAlertAction(
+            title: "Cancel",
+            style: .cancel,
+            handler: nil
+        )
+        actionSheet.addAction(cancelAction)
+        
+        present(actionSheet, animated: true, completion: nil)
+    }
 
 }
 
-extension HomeViewController: UISearchResultsUpdating {
+extension HomeViewController: UISearchResultsUpdating, UISearchBarDelegate {
     public func updateSearchResults(for searchController: UISearchController) {
         guard let resultsController = searchController.searchResultsController as? AutocompleteSearchResultsViewController else {
             return
@@ -146,13 +247,17 @@ extension HomeViewController: UISearchResultsUpdating {
         
         resultsController.fetchLanguages(searchText: searchText)
     }
+    
+    public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        viewModel.fetchRepos(searchText: "", sortMode: viewModel.sortMode)
+    }
 }
 
 extension HomeViewController: AutocompleteSearchResultsViewControllerDelegate {
     func didSelectLanguage(_ language: String) {
         searchController.isActive = false
         searchController.searchBar.text = language
-        searchRepositories(language: language)
+        searchRepositories(language: language, sortMode: viewModel.sortMode)
     }
 }
 
@@ -160,6 +265,14 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     public func numberOfSections(in tableView: UITableView) -> Int {
         return 1
+    }
+    
+    public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        if viewModel.repositories.isEmpty {
+            return nil
+        } else {
+            return "You are viewing this list in \(viewModel.sortMode.localizedTitle.lowercased()) order."
+        }
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

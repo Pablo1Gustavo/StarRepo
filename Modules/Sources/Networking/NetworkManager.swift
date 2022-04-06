@@ -34,6 +34,12 @@ public final class NetworkManager {
                     } catch {
                         completion(.failure(error))
                     }
+                case 304:
+                    completion(.failure(HTTPError.notModified))
+                case 422:
+                    completion(.failure(HTTPError.unprocessableEntity))
+                case 503:
+                    completion(.failure(HTTPError.serviceUnavailable))
                 default:
                     break
                 }

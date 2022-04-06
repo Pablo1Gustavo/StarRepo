@@ -22,24 +22,34 @@ public final class HomeViewModel {
         }
     }
     
+    private(set) var sortMode: SortMode = .descending
+    
     private(set) var repositories: [Repository] = []
     
     public init(homeService: HomeServiceProtocol) {
         self.homeService = homeService
     }
     
-    func fetchRepos(searchText: String) {
-        state = .loading
+    func fetchRepos(searchText: String?, sortMode: SortMode) {
+        repositories = []
         
-        homeService.fetchRepositories(searchText: searchText) { [weak self] result in
-            switch result {
-            case .success(let repos):
-                self?.repositories = repos
-                self?.state = repos.isEmpty ? .empty : .done
-            case .failure(let error):
-                print(error.localizedDescription)
-                self?.state = .failure
+        self.sortMode = sortMode
+        
+        if let searchText = searchText, !searchText.isEmpty {
+            state = .loading
+            
+            homeService.fetchRepositories(searchText: searchText, sortMode: sortMode) { [weak self] result in
+                switch result {
+                case .success(let repos):
+                    self?.repositories = repos
+                    self?.state = repos.isEmpty ? .empty : .done
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    self?.state = .failure
+                }
             }
+        } else {
+            state = .onboarding
         }
     }
     

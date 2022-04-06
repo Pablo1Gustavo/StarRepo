@@ -190,16 +190,7 @@ public class RepoDetailsViewController: FormViewController{
                         title: "Go to Repository",
                         action: {[weak self] in
                             self?.performURL(for: model.url)
-                        } ),
-//                    ButtonRow(
-//                        image: .init(systemName: "star", withConfiguration: symbolConfiguration),
-//                        title: "",
-//                        configurationHandler: { config in
-//                            config.tintColor = .systemPurple
-//                        },
-//                        action: {[weak self] in
-//                            self?.handleFavoriteButton()
-//                        } )
+                        } )
                 ]
             ),
         ]
@@ -220,38 +211,3 @@ extension RepoDetailsViewController: FormDelegate {
     }
 }
 
-//#if DEBUG
-//import SwiftUI
-//import Core
-//import StarRepo
-//
-//struct RepoDetailsViewControllerPreviews: PreviewProvider {
-//    static var previews: some View {
-//        if #available(iOS 14.0, *) {
-//            ContainerPreview()
-//                .ignoresSafeArea()
-//        } else {
-//            ContainerPreview()
-//                .environment(\.colorScheme, .dark)
-//        }
-//    }
-//
-//    struct ContainerPreview: UIViewControllerRepresentable {
-//        typealias UIViewControllerType = UINavigationController
-//
-//        func makeUIViewController(context: Context) -> UIViewControllerType {
-//            let viewModel = RepoDetailsViewModel(repoDetails: viewModel.repoDetails, repoDetailsService: RepoDetailsService(), fetchFavReposService: Persistence(), addFavRepoService: Persistence(), deleteFavRepoService: Persistence())
-//
-//            let viewController = RepoDetailsViewController(
-//                viewModel: viewModel
-//            )
-//
-//            let navController = UINavigationController(rootViewController: viewController)
-//
-//            return navController
-//        }
-//
-//        func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
-//    }
-//}
-//#endif
