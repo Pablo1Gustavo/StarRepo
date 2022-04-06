@@ -118,4 +118,5 @@ public final class RepoDetailsViewModel {
             imageURL: repo.imageURL ?? ""
         )
     }
+    
 }

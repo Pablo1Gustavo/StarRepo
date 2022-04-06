@@ -28,7 +28,6 @@ public class RepoDetailsViewController: FormViewController{
         let barButton = UIBarButtonItem()
         barButton.tintColor = .systemBlue
         barButton.style = .plain
-        
         barButton.target = self
         barButton.action = #selector(handleStarBarButton)
         return barButton
@@ -48,12 +47,25 @@ public class RepoDetailsViewController: FormViewController{
         label.textAlignment = .center
         return label
     }()
+  
+    // MARK: - Initializers
+    
+    public init(viewModel: RepoDetailsViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Lifecycle
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        
         delegate = self
+        
         configureNavigationBar()
         configureTableHeaderView()
         configLoadingIndicator()
@@ -73,17 +85,6 @@ public class RepoDetailsViewController: FormViewController{
         viewModel.fetchRepoDetails()
         
         starBarButtonInitialState()
-    }
-    
-    // MARK: - Initializers
-    
-    public init(viewModel: RepoDetailsViewModel) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Private Methods
@@ -228,13 +229,23 @@ public class RepoDetailsViewController: FormViewController{
         if let urlString = model.owner?.avatarURL, let url = URL(string: urlString) {
             thumbnailImageView.kf.setImage(with: url)
         }
+        
         let symbolConfiguration = UIImage.SymbolConfiguration(
             font: .preferredFont(for: .title3, weight: .medium)
         )
         
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
+        
+        var createdAt: String?
+        
+        if let date = dateFormatterGet.date(from: model.createdAt) {
+            createdAt = dateFormatter.string(from: date)
+        }
         
         sections = [
             FormSection(
@@ -266,7 +277,7 @@ public class RepoDetailsViewController: FormViewController{
                     TitleDescriptionRow(
                         image: .init(systemName: "alarm.fill", withConfiguration: symbolConfiguration),
                         title: "Created at",
-                        description: model.createdAt
+                        description: createdAt ?? "No date"
                     ),
                     TitleDescriptionRow(
                         image: .init(systemName: "globe", withConfiguration: symbolConfiguration),
@@ -281,9 +292,10 @@ public class RepoDetailsViewController: FormViewController{
                     ButtonRow(
                         image: nil,
                         title: "Go to Repository",
-                        action: {[weak self] in
+                        action: { [weak self] in
                             self?.performURL(for: model.url)
-                        } )
+                        }
+                    )
                 ]
             ),
         ]
