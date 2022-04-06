@@ -73,16 +73,27 @@ public class RepoDetailsViewController: FormViewController{
     
     private func configure(with model: Repository) {
         title = model.name
+        
         if let urlString = model.owner?.avatarURL, let url = URL(string: urlString) {
             thumbnailImageView.kf.setImage(with: url)
         }
+        
         let symbolConfiguration = UIImage.SymbolConfiguration(
             font: .preferredFont(for: .title3, weight: .medium)
         )
         
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
+        
+        var createdAt: String?
+        
+        if let date = dateFormatterGet.date(from: model.createdAt) {
+            createdAt = dateFormatter.string(from: date)
+        }
         
         sections = [
             FormSection(
@@ -114,7 +125,7 @@ public class RepoDetailsViewController: FormViewController{
                     TitleDescriptionRow(
                         image: .init(systemName: "alarm.fill", withConfiguration: symbolConfiguration),
                         title: "Created at",
-                        description: model.createdAt
+                        description: createdAt ?? "No date"
                     ),
                     TitleDescriptionRow(
                         image: .init(systemName: "globe", withConfiguration: symbolConfiguration),
@@ -129,9 +140,10 @@ public class RepoDetailsViewController: FormViewController{
                     ButtonRow(
                         image: nil,
                         title: "Go to Repository",
-                        action: {[weak self] in
+                        action: { [weak self] in
                             self?.performURL(for: model.url)
-                        } )
+                        }
+                    )
                 ]
             ),
         ]
