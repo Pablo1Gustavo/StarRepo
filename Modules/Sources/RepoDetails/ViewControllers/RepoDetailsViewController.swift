@@ -3,6 +3,7 @@ import Form
 import Core
 import Extensions
 import Kingfisher
+import SkeletonView
 
 public class RepoDetailsViewController: FormViewController{
     
@@ -17,6 +18,7 @@ public class RepoDetailsViewController: FormViewController{
         imageView.backgroundColor = .systemGray5
         imageView.layer.cornerRadius = 60
         imageView.clipsToBounds = true
+        imageView.isSkeletonable = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -25,8 +27,9 @@ public class RepoDetailsViewController: FormViewController{
         let barButton = UIBarButtonItem()
         barButton.tintColor = .systemPurple
         barButton.style = .plain
+        
         barButton.target = self
-        barButton.action = #selector(handleFavoriteButton)
+        barButton.action = #selector(handleStarBarButton)
         return barButton
     }()
     
@@ -37,6 +40,15 @@ public class RepoDetailsViewController: FormViewController{
         return view
     }()
     
+    private lazy var emptyMessageLabel: UILabel = {
+        let label = UILabel()
+        label.font = .preferredFont(for: .title2, weight: .bold)
+        label.textColor = .secondaryLabel
+        label.text = "Empty Message"
+        label.textAlignment = .center
+        return label
+    }()
+    
     // MARK: - Lifecycle
     
     public override func viewDidLoad() {
@@ -44,7 +56,12 @@ public class RepoDetailsViewController: FormViewController{
         delegate = self
         configureNavigationBar()
         configureTableHeaderView()
-        configure(with: viewModel.repoDetails!)
+        
+        reloadView()
+        
+        handleStateChange()
+        
+        handlePushFromHome()
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -55,7 +72,6 @@ public class RepoDetailsViewController: FormViewController{
         viewModel.fetchRepoDetails()
         
         starBarButtonInitialState()
-        
     }
     
     // MARK: - Initializers
@@ -88,8 +104,32 @@ public class RepoDetailsViewController: FormViewController{
     
     private func configureNavigationBar() {
         navigationItem.largeTitleDisplayMode = .never
+    }
+    
+    private func handleStateChange() {
+        viewModel.didUpdateViewState = { [weak self] in
+            DispatchQueue.main.async {
+                if let details = self?.viewModel.repoDetails {
+                    self?.configure(with: details)
+                }
+                self?.reloadView()
+            }
+        }
+    }
+    
+    private func handlePushFromHome() {
+        guard let details = viewModel.repoDetails else { return }
         
+        configure(with: details)
         navigationItem.rightBarButtonItem = starBarButton
+    }
+    
+    private func starBarButtonInitialState() {
+        if repoIsFavorite() {
+            starBarButton.image = UIImage.init(systemName: "star.fill")
+        } else {
+            starBarButton.image = UIImage.init(systemName: "star")
+        }
     }
     
     private func repoIsFavorite() -> Bool {
@@ -103,16 +143,8 @@ public class RepoDetailsViewController: FormViewController{
         return false
     }
     
-    private func starBarButtonInitialState() {
-        if repoIsFavorite() {
-            starBarButton.image = UIImage.init(systemName: "star.fill")
-        } else {
-            starBarButton.image = UIImage.init(systemName: "star")
-        }
-    }
-    
     @objc
-    private func handleFavoriteButton() {
+    private func handleStarBarButton() {
         let starSymbol = starBarButton.image!.sfSymbolName!
         
         if starSymbol == "star" {
@@ -127,6 +159,38 @@ public class RepoDetailsViewController: FormViewController{
             }
         }
         
+    }
+    
+    private func reloadView() {
+        tableView.reloadData()
+        
+        switch viewModel.state {
+        case .loading:
+            configureLoadingState()
+        case .done:
+            configureDoneState()
+        case .failure:
+            configureFailureState()
+        }
+    }
+    
+    private func configureLoadingState() {
+        thumbnailImageView.showAnimatedGradientSkeleton()
+        navigationItem.rightBarButtonItem = nil
+        emptyMessageLabel.text = "Loading"
+        tableView.backgroundView = emptyMessageLabel
+    }
+    
+    private func configureDoneState() {
+        navigationItem.rightBarButtonItem = starBarButton
+        starBarButtonInitialState()
+        thumbnailImageView.hideSkeleton()
+        emptyMessageLabel.text = nil
+    }
+    
+    private func configureFailureState() {
+        emptyMessageLabel.text = "Error"
+        tableView.backgroundView = emptyMessageLabel
     }
     
     private func configure(with model: Repository) {

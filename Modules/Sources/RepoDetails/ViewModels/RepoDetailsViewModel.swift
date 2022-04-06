@@ -31,7 +31,7 @@ public final class RepoDetailsViewModel {
     
     private(set) var favReference: FavRepo?
     
-    private(set) var state: ViewState = .loading { //verificar se o .loading aqui está correto
+    private(set) var state: ViewState = .loading {
         didSet {
             didUpdateViewState?()
         }
@@ -59,19 +59,21 @@ public final class RepoDetailsViewModel {
     ///Get details about one repository in GitHub API according to its id
     func fetchRepoDetails() {
         
-        if let favRef = self.favReference {
-            
-            state = .loading
-            
-            repoDetailsService.fetchRepositorieDetails(id: Int(truncating: favRef.id)) { [weak self] result in //verify if truncating can represent a problem
-                switch result {
-                case .success(let details):
-                    self?.repoDetails = details
-                    self?.state = .done // verificar se o done deve ficar aqui ou na view controller
-                case .failure(let error):
-                    print(error.localizedDescription)
-                    self?.state = .failure
-                }
+        guard let favRef = self.favReference else {
+            state = .done
+            return
+        }
+        
+        state = .loading
+        
+        repoDetailsService.fetchRepositorieDetails(id: Int(truncating: favRef.id)) { [weak self] result in //verify if truncating can represent a problem
+            switch result {
+            case .success(let details):
+                self?.repoDetails = details
+                self?.state = .done
+            case .failure(let error):
+                print(error.localizedDescription)
+                self?.state = .failure
             }
         }
     }
@@ -86,7 +88,7 @@ public final class RepoDetailsViewModel {
             switch result {
             case .success(let favRepos):
                 self.favRepositories = favRepos
-                self.state = .done // verificar se o done deve ficar aqui ou na view controller
+                self.state = .done
             case .failure(let error):
                 print(error)
                 self.state = .failure
