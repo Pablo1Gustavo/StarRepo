@@ -122,15 +122,6 @@ public class RepoDetailsViewController: FormViewController{
                         title: "Go to Repository",
                         action: {[weak self] in
                             self?.performURL(for: model.url)
-                        } ),
-                    ButtonRow(
-                        image: .init(systemName: "star", withConfiguration: symbolConfiguration),
-                        title: "",
-                        configurationHandler: { config in
-                            config.tintColor = .systemPurple
-                        },
-                        action: {[weak self] in
-                            self?.handleFavoriteButton()
                         } )
                 ]
             ),
@@ -143,10 +134,6 @@ public class RepoDetailsViewController: FormViewController{
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         }
-    }
-    
-    private func handleFavoriteButton() {
-        print("Clique na estrela")
     }
     
 }
