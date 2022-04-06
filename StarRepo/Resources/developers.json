@@ -44,7 +44,7 @@
     {
         "id": 3,
         "name": "Pablo Gustavo Fernandes Maia",
-        "about_me": "",
+        "about_me": "Técnico de informática e estudante de graduação em Tecnologia da Informação. Dês de cedo gosta de computadores e o primeiro contato com uma linha de código foi amor a primeira vista.",
         "occupation": "iOS Developer",
         "profile_image_url": "https://github.com/Pablo1Gustavo/StarRepo/blob/main/devs_profile_images/pablo_maia.jpg?raw=true",
         "email": "pablo1gustavo.dev@gmail.com",
@@ -72,7 +72,7 @@
     {
         "id": 5,
         "name": "Everton Santana",
-        "about_me": "",
+        "about_me": "Everton é Engenheiro de nascença e Problem-Solver por contingência.\nFotógrafo e Batuqueiro por Terapia e Empreendedor por Ousadia.\nE, não satisfeito com isso, também se tornou Cientista de Dados e está - por enquanto falhando miseravelmente (ok, talvez nem tanto) - tentando virar Dev!",
         "occupation": "iOS Developer",
         "profile_image_url": "https://github.com/Pablo1Gustavo/StarRepo/blob/main/devs_profile_images/everton_santana.jpg?raw=true",
         "email": "everton.santana@gmail.com",
