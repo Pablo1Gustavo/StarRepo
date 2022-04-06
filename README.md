@@ -7,7 +7,7 @@
 
 ## 🎯 Objetivo
 
-O objetivo deste projeto é criar um aplicativo iOS simples, proposto como desafio final do treinamento "go!dev by Idwall", para visualizar repositórios do Github com suas informações e poder favoritá-los. O aplicativo conta também com uma aba para visualizar os desenvolvedores do projeto e seus dados.
+O objetivo deste projeto é criar um aplicativo iOS, proposto como desafio final do treinamento "go!dev by Idwall", para busca e visualização de repositórios do Github com suas informações e a possibilidade de favoritá-los. O aplicativo conta também com uma aba para visualizar os desenvolvedores do projeto e suas informações.
 
 Foi proposto também que o desenvolvimento das telas fosse feito conforme descrito no protótipo do Figma por [este link](https://www.figma.com/file/UjMSUj1mqMP9OSTfzDpZce/Desafio_Final).
 
@@ -16,6 +16,8 @@ Foi proposto também que o desenvolvimento das telas fosse feito conforme descri
 * UIKit framework
 * Core Data
 * Consumo de API
+* Coordinator Pattern
+* Swift Package Manager
 
 ## 📘 Créditos
 Este projeto foi feito em equipe por:
@@ -26,4 +28,4 @@ Este projeto foi feito em equipe por:
 * [Victor Silva](https://github.com/victorugons)
 * [Matheus Campos Paulino](https://github.com/codecampos)
 
-Também os merecidos créditos para a [Idwall](https://idwall.co/) que trouxe esse treinamento através da [Gama Academy](https://www.gama.academy/), visando de trazer pessoas treinadas e especializadas no desenvolvimento iOS.
+Também os merecidos créditos para a [Idwall](https://idwall.co/) que trouxe esse treinamento através da [Gama Academy](https://www.gama.academy/), visando trazer pessoas treinadas e especializadas no desenvolvimento iOS.
