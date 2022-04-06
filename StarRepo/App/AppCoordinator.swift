@@ -30,7 +30,7 @@ final class AppCoordinator: Coordinator {
             tag: 1
         )
         
-        let developerTeamCoordinator = DeveloperTeamCoordinator(rootViewController: UINavigationController())
+        let developerTeamCoordinator = DeveloperTeamCoordinator(rootViewController: UISplitViewController())
         developerTeamCoordinator.start()
         
         developerTeamCoordinator.rootViewController.tabBarItem = UITabBarItem(
