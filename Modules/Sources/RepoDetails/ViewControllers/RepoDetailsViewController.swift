@@ -26,13 +26,7 @@ public class RepoDetailsViewController: FormViewController{
         return view
     }()
     
-    public override func viewDidLoad() {
-        super.viewDidLoad()
-        delegate = self
-        configureNavigationBar()
-        configureTableHeaderView()
-        configure(with: viewModel.repository)
-    }
+    // MARK: - Initializers
     
     public init(viewModel: RepoDetailsViewModel) {
         self.viewModel = viewModel
@@ -41,6 +35,25 @@ public class RepoDetailsViewController: FormViewController{
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Lifecycle
+    
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        delegate = self
+        
+        configureNavigationBar()
+        configureTableHeaderView()
+        
+        configure(with: viewModel.repository)
+    }
+    
+    // MARK: - Private methods
+    
+    private func configureNavigationBar() {
+        navigationItem.largeTitleDisplayMode = .never
     }
     
     private func configureTableHeaderView() {
@@ -56,10 +69,6 @@ public class RepoDetailsViewController: FormViewController{
         
         tableView.tableHeaderView = tableHeaderView
         
-    }
-    
-    private func configureNavigationBar() {
-        navigationItem.largeTitleDisplayMode = .never
     }
     
     private func configure(with model: Repository) {
