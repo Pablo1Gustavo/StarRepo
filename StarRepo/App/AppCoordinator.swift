@@ -12,7 +12,7 @@ final class AppCoordinator: Coordinator {
     }
     
     func start() {
-        let homeCoordinator = HomeCoordinator(rootViewController: UINavigationController())
+        let homeCoordinator = HomeCoordinator(rootViewController: UISplitViewController())
         homeCoordinator.start()
         
         homeCoordinator.rootViewController.tabBarItem = UITabBarItem(
