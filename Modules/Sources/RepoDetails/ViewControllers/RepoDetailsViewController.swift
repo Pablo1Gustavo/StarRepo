@@ -6,6 +6,8 @@ import Kingfisher
 
 public class RepoDetailsViewController: FormViewController{
     
+    // MARK: - Private Variables
+    
     private var viewModel: RepoDetailsViewModel
     
     private var sections: [FormSection] = []
@@ -19,12 +21,23 @@ public class RepoDetailsViewController: FormViewController{
         return imageView
     }()
     
+    private lazy var starBarButton: UIBarButtonItem = {
+        let barButton = UIBarButtonItem()
+        barButton.tintColor = .systemPurple
+        barButton.style = .plain
+        barButton.target = self
+        barButton.action = #selector(handleFavoriteButton)
+        return barButton
+    }()
+    
     private lazy var tableHeaderView: UIView = {
         let view = UIView()
         view.frame.size.height = 152
         view.backgroundColor = .systemGroupedBackground
         return view
     }()
+    
+    // MARK: - Lifecycle
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +47,19 @@ public class RepoDetailsViewController: FormViewController{
         configure(with: viewModel.repoDetails!)
     }
     
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        viewModel.fetchFavoriteRepos()
+        
+        viewModel.fetchRepoDetails()
+        
+        starBarButtonInitialState()
+        
+    }
+    
+    // MARK: - Initializers
+    
     public init(viewModel: RepoDetailsViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -42,6 +68,8 @@ public class RepoDetailsViewController: FormViewController{
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Private Methods
     
     private func configureTableHeaderView() {
         
@@ -61,16 +89,43 @@ public class RepoDetailsViewController: FormViewController{
     private func configureNavigationBar() {
         navigationItem.largeTitleDisplayMode = .never
         
-        let favoriteButton = UIBarButtonItem(image: UIImage.init(systemName: "star"), style: .plain, target: self, action: #selector(handleFavoriteButton))
-        favoriteButton.tintColor = .systemPurple
-        
-        navigationItem.rightBarButtonItem = favoriteButton
+        navigationItem.rightBarButtonItem = starBarButton
+    }
+    
+    private func repoIsFavorite() -> Bool {
+        for repo in viewModel.favRepositories {
+            let apiId = self.viewModel.repoDetails?.id
+            let favId = repo.id
+            if favId == apiId {
+                return true
+            }
+        }
+        return false
+    }
+    
+    private func starBarButtonInitialState() {
+        if repoIsFavorite() {
+            starBarButton.image = UIImage.init(systemName: "star.fill")
+        } else {
+            starBarButton.image = UIImage.init(systemName: "star")
+        }
     }
     
     @objc
     private func handleFavoriteButton() {
+        let starSymbol = starBarButton.image!.sfSymbolName!
         
-        viewModel.addFavoriteRepo(viewModel.repoDetails!)
+        if starSymbol == "star" {
+            starBarButton.image = UIImage.init(systemName: "star.fill")
+            if let repository = viewModel.repoDetails {
+                viewModel.addFavoriteRepo(repository)
+            }
+        } else {
+            starBarButton.image = UIImage.init(systemName: "star")
+            if let repoId = viewModel.repoDetails?.id {
+                viewModel.deleteFavoriteRepo(id: repoId.int64Value)
+            }
+        }
         
     }
     
@@ -157,11 +212,6 @@ public class RepoDetailsViewController: FormViewController{
             }
         }
     }
-    
-//    private func handleFavoriteButton() {
-//        print("Favoritei")
-//    }
-    
 }
 
 extension RepoDetailsViewController: FormDelegate {
