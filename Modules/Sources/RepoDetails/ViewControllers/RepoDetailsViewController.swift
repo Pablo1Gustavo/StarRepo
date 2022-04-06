@@ -13,6 +13,8 @@ public class RepoDetailsViewController: FormViewController{
     
     private var sections: [FormSection] = []
     
+    private var loading = UIActivityIndicatorView(style: .large)
+    
     private lazy var thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .systemGray5
@@ -25,7 +27,7 @@ public class RepoDetailsViewController: FormViewController{
     
     private lazy var starBarButton: UIBarButtonItem = {
         let barButton = UIBarButtonItem()
-        barButton.tintColor = .systemPurple
+        barButton.tintColor = .systemBlue
         barButton.style = .plain
         
         barButton.target = self
@@ -44,7 +46,6 @@ public class RepoDetailsViewController: FormViewController{
         let label = UILabel()
         label.font = .preferredFont(for: .title2, weight: .bold)
         label.textColor = .secondaryLabel
-        label.text = "Empty Message"
         label.textAlignment = .center
         return label
     }()
@@ -56,6 +57,7 @@ public class RepoDetailsViewController: FormViewController{
         delegate = self
         configureNavigationBar()
         configureTableHeaderView()
+        configLoadingIndicator()
         
         reloadView()
         
@@ -104,6 +106,33 @@ public class RepoDetailsViewController: FormViewController{
     
     private func configureNavigationBar() {
         navigationItem.largeTitleDisplayMode = .never
+    }
+    
+    private func configLoadingIndicator() {
+        loading.color = .systemBlue
+        loading.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(loading)
+        
+        NSLayoutConstraint.activate([
+            loading.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loading.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+        
+    }
+    
+    private func showLoadingIndicator() {
+        DispatchQueue.main.async {
+            self.loading.startAnimating()
+            self.loading.isHidden = false
+        }
+    }
+    
+    private func hideLoadingIndicator() {
+        DispatchQueue.main.async {
+            self.loading.stopAnimating()
+            self.loading.isHidden = true
+        }
     }
     
     private func handleStateChange() {
@@ -175,16 +204,17 @@ public class RepoDetailsViewController: FormViewController{
     }
     
     private func configureLoadingState() {
-        thumbnailImageView.showAnimatedGradientSkeleton()
+        showLoadingIndicator()
+        tableView.tableHeaderView = nil
         navigationItem.rightBarButtonItem = nil
-        emptyMessageLabel.text = "Loading"
         tableView.backgroundView = emptyMessageLabel
     }
     
     private func configureDoneState() {
+        hideLoadingIndicator()
+        tableView.tableHeaderView = tableHeaderView
         navigationItem.rightBarButtonItem = starBarButton
         starBarButtonInitialState()
-        thumbnailImageView.hideSkeleton()
         emptyMessageLabel.text = nil
     }
     
