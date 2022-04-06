@@ -2,7 +2,7 @@ import Foundation
 import Core
 
 public protocol HomeServiceProtocol {
-    func fetchRepositories(searchText: String, completion: @escaping (Result<[Repository], Error>) -> Void)
+    func fetchRepositories(searchText: String, sortMode: SortMode, completion: @escaping (Result<[Repository], Error>) -> Void)
 }
 
 #if DEBUG
@@ -19,10 +19,12 @@ struct DummyHomeService: HomeServiceProtocol {
         self.state = state
     }
     
-    func fetchRepositories(searchText: String, completion: (Result<[Repository], Error>) -> Void) {
+    func fetchRepositories(searchText: String, sortMode: SortMode, completion: (Result<[Repository], Error>) -> Void) {
         switch state {
         case .done:
-            let repos = Repository.debugRepositories
+            let repos = Repository.debugRepositories.sorted(by: {
+                sortMode == .ascending ? $0.name < $1.name : $0.name > $1.name
+            })
             completion(.success(repos))
         case .empty:
             completion(.success([]))
