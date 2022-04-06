@@ -3,7 +3,6 @@ import Form
 import Core
 import Extensions
 import Kingfisher
-import SkeletonView
 
 public class RepoDetailsViewController: FormViewController{
     
