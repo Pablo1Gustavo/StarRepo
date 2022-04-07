@@ -3,6 +3,7 @@ import Home
 import Core
 import RepoDetails
 import SplitDetailView
+import FavoritesData
 
 final class HomeCoordinator: Coordinator {
     
@@ -53,8 +54,18 @@ final class HomeCoordinator: Coordinator {
     func pushRepoDetailsViewController(repository: Repository) {
         var secondaryViewController: UIViewController
         
-        let viewModel = RepoDetailsViewModel(repository: repository)
-        let viewController = RepoDetailsViewController(viewModel: viewModel)
+        let viewModel = RepoDetailsViewModel(
+            repoDetails: repository,
+            favReference: nil,
+            repoDetailsService: RepoDetailsService(),
+            fetchFavReposService: Persistence(),
+            addFavRepoService: Persistence(),
+            deleteFavRepoService: Persistence()
+        )
+        
+        let viewController = RepoDetailsViewController(
+            viewModel: viewModel
+        )
         
         if UIDevice.current.userInterfaceIdiom == .pad {
             secondaryViewController = UINavigationController(rootViewController: viewController)

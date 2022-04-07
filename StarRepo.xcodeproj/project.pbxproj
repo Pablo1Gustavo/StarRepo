@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		057ABB3E27FC9ED200C6B86E /* RepoDetailsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057ABB3D27FC9ED200C6B86E /* RepoDetailsRequest.swift */; };
+		057ABB4027FC9EE900C6B86E /* RepoDetailsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057ABB3F27FC9EE900C6B86E /* RepoDetailsService.swift */; };
 		4B2BEA6C27EA078000225B12 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2BEA6B27EA078000225B12 /* Coordinator.swift */; };
 		4B2BEA6E27EA081E00225B12 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2BEA6D27EA081E00225B12 /* HomeCoordinator.swift */; };
 		4B2BEA7127EA089900225B12 /* Modules in Frameworks */ = {isa = PBXBuildFile; productRef = 4B2BEA7027EA089900225B12 /* Modules */; };
@@ -47,6 +49,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		057ABB3D27FC9ED200C6B86E /* RepoDetailsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoDetailsRequest.swift; sourceTree = "<group>"; };
+		057ABB3F27FC9EE900C6B86E /* RepoDetailsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoDetailsService.swift; sourceTree = "<group>"; };
 		4B2BEA6B27EA078000225B12 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		4B2BEA6D27EA081E00225B12 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		4B2BEA7627EA095C00225B12 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -100,6 +104,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		057ABB3A27FC9E4B00C6B86E /* RepoDetails */ = {
+			isa = PBXGroup;
+			children = (
+				057ABB3B27FC9E8900C6B86E /* Request */,
+				057ABB3C27FC9E9300C6B86E /* Services */,
+			);
+			path = RepoDetails;
+			sourceTree = "<group>";
+		};
+		057ABB3B27FC9E8900C6B86E /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				057ABB3D27FC9ED200C6B86E /* RepoDetailsRequest.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		057ABB3C27FC9E9300C6B86E /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				057ABB3F27FC9EE900C6B86E /* RepoDetailsService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		4B2BEA6A27EA077400225B12 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
@@ -233,6 +262,7 @@
 				4B2BEA7427EA093900225B12 /* Home */,
 				4B2BEA7827EA0B6A00225B12 /* Favorites */,
 				4B2BEA7927EA0B7300225B12 /* DeveloperTeam */,
+				057ABB3A27FC9E4B00C6B86E /* RepoDetails */,
 				4B4FD9C727FA0C4C004DD6F6 /* Resources */,
 				4B5B7D6727E964B1009CF38D /* Assets.xcassets */,
 				4B5B7D6927E964B1009CF38D /* LaunchScreen.storyboard */,
@@ -395,6 +425,8 @@
 			files = (
 				4B2BEA7727EA095C00225B12 /* AppCoordinator.swift in Sources */,
 				4B4FD9BF27F8A0CE004DD6F6 /* RepositoriesResponse.swift in Sources */,
+				057ABB4027FC9EE900C6B86E /* RepoDetailsService.swift in Sources */,
+				057ABB3E27FC9ED200C6B86E /* RepoDetailsRequest.swift in Sources */,
 				4B2BEA7B27EA0B9400225B12 /* FavoritesCoordinator.swift in Sources */,
 				4B2BEA6C27EA078000225B12 /* Coordinator.swift in Sources */,
 				4B2BEA7D27EA0C2300225B12 /* DeveloperTeamCoordinator.swift in Sources */,
@@ -575,7 +607,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7JU93RU6J9;
+				DEVELOPMENT_TEAM = VMS7N3ZWG9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StarRepo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -603,7 +635,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7JU93RU6J9;
+				DEVELOPMENT_TEAM = VMS7N3ZWG9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StarRepo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

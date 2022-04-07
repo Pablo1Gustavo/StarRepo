@@ -3,12 +3,15 @@ import Form
 import Extensions
 import Kingfisher
 import MessageUI
+import PhoneNumberKit
 
 public class DeveloperDetailsViewController: FormViewController {
     
     private var viewModel: DeveloperDetailsViewModel
     
     private var sections: [FormSection] = []
+    
+    private let phoneNumberKit = PhoneNumberKit()
     
     private lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
@@ -86,6 +89,21 @@ public class DeveloperDetailsViewController: FormViewController {
             profileImageView.kf.setImage(with: url)
         }
         
+        var phoneNumberString: String?
+        
+        do {
+            let phoneNumber = try phoneNumberKit.parse(model.phoneNumber)
+            phoneNumberString = phoneNumberKit.format(phoneNumber, toType: .international)
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+//        do {
+//            phoneNumber =
+//        } catch {
+//            print(error.localizedDescription)
+//        }
+        
         sections = [
             FormSection(
                 title: nil,
@@ -101,7 +119,7 @@ public class DeveloperDetailsViewController: FormViewController {
                     TitleDescriptionRow(
                         image: .init(systemName: "phone"),
                         title: "Phone number",
-                        description: model.phoneNumber
+                        description: phoneNumberString ?? "No phone number"
                     ),
                     TitleDescriptionRow(
                         image: .init(systemName: "envelope"),
@@ -146,6 +164,12 @@ public class DeveloperDetailsViewController: FormViewController {
                 ]
             )
         ]
+    }
+    
+    private func call(to phoneNumber: String) {
+        if let url = URL(string: "tel://\(phoneNumber)"), UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
     }
     
     private func sendEmail(for email: String) {
