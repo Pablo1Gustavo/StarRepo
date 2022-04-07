@@ -8,6 +8,7 @@ open class FormViewController: UIViewController {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.cellLayoutMarginsFollowReadableWidth = true
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()

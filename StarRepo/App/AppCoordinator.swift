@@ -12,7 +12,7 @@ final class AppCoordinator: Coordinator {
     }
     
     func start() {
-        let homeCoordinator = HomeCoordinator(rootViewController: UINavigationController())
+        let homeCoordinator = HomeCoordinator(rootViewController: UISplitViewController())
         homeCoordinator.start()
         
         homeCoordinator.rootViewController.tabBarItem = UITabBarItem(
@@ -21,7 +21,7 @@ final class AppCoordinator: Coordinator {
             tag: 0
         )
         
-        let favoritesCoordinator = FavoritesCoordinator(rootViewController: UINavigationController())
+        let favoritesCoordinator = FavoritesCoordinator(rootViewController: UISplitViewController())
         favoritesCoordinator.start()
         
         favoritesCoordinator.rootViewController.tabBarItem = UITabBarItem(
@@ -30,7 +30,7 @@ final class AppCoordinator: Coordinator {
             tag: 1
         )
         
-        let developerTeamCoordinator = DeveloperTeamCoordinator(rootViewController: UINavigationController())
+        let developerTeamCoordinator = DeveloperTeamCoordinator(rootViewController: UISplitViewController())
         developerTeamCoordinator.start()
         
         developerTeamCoordinator.rootViewController.tabBarItem = UITabBarItem(

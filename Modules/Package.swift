@@ -21,7 +21,8 @@ let package = Package(
                 "Favorites",
                 "RepoDetails",
                 "DeveloperTeamList",
-                "DeveloperDetails"
+                "DeveloperDetails",
+                "SplitDetailView"
             ]),
     ],
     dependencies: [
@@ -87,5 +88,11 @@ let package = Package(
         .testTarget(
             name: "DeveloperDetailsTests",
             dependencies: ["DeveloperDetails"]),
+        .target(
+            name: "SplitDetailView",
+            dependencies: []),
+        .testTarget(
+            name: "SplitDetailViewTests",
+            dependencies: ["SplitDetailView"]),
     ]
 )
