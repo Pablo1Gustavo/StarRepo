@@ -73,7 +73,7 @@ final class HomeCoordinator: Coordinator {
             secondaryViewController = viewController
         }
         
-        rootViewController.showDetailViewController(secondaryViewController, sender: self)
+        rootViewController.showDetailViewController(secondaryViewController, sender: nil)
     }
 }
 
