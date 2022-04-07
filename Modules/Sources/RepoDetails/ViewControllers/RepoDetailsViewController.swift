@@ -6,9 +6,13 @@ import Kingfisher
 
 public class RepoDetailsViewController: FormViewController{
     
+    // MARK: - Private Variables
+    
     private var viewModel: RepoDetailsViewModel
     
     private var sections: [FormSection] = []
+    
+    private var loading = UIActivityIndicatorView(style: .large)
     
     private lazy var thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
@@ -19,6 +23,15 @@ public class RepoDetailsViewController: FormViewController{
         return imageView
     }()
     
+    private lazy var starBarButton: UIBarButtonItem = {
+        let barButton = UIBarButtonItem()
+        barButton.tintColor = .systemBlue
+        barButton.style = .plain
+        barButton.target = self
+        barButton.action = #selector(handleStarBarButton)
+        return barButton
+    }()
+    
     private lazy var tableHeaderView: UIView = {
         let view = UIView()
         view.frame.size.height = 152
@@ -26,6 +39,14 @@ public class RepoDetailsViewController: FormViewController{
         return view
     }()
     
+    private lazy var emptyMessageLabel: UILabel = {
+        let label = UILabel()
+        label.font = .preferredFont(for: .title2, weight: .bold)
+        label.textColor = .secondaryLabel
+        label.textAlignment = .center
+        return label
+    }()
+  
     // MARK: - Initializers
     
     public init(viewModel: RepoDetailsViewModel) {
@@ -46,15 +67,26 @@ public class RepoDetailsViewController: FormViewController{
         
         configureNavigationBar()
         configureTableHeaderView()
+        configLoadingIndicator()
         
-        configure(with: viewModel.repository)
+        reloadView()
+        
+        handleStateChange()
+        
+        handlePushFromHome()
     }
     
-    // MARK: - Private methods
-    
-    private func configureNavigationBar() {
-        navigationItem.largeTitleDisplayMode = .never
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        viewModel.fetchFavoriteRepos()
+        
+        viewModel.fetchRepoDetails()
+        
+        starBarButtonInitialState()
     }
+    
+    // MARK: - Private Methods
     
     private func configureTableHeaderView() {
         
@@ -69,6 +101,125 @@ public class RepoDetailsViewController: FormViewController{
         
         tableView.tableHeaderView = tableHeaderView
         
+    }
+    
+    private func configureNavigationBar() {
+        navigationItem.largeTitleDisplayMode = .never
+    }
+    
+    private func configLoadingIndicator() {
+        loading.color = .systemBlue
+        loading.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(loading)
+        
+        NSLayoutConstraint.activate([
+            loading.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loading.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+        
+    }
+    
+    private func showLoadingIndicator() {
+        DispatchQueue.main.async {
+            self.loading.startAnimating()
+            self.loading.isHidden = false
+        }
+    }
+    
+    private func hideLoadingIndicator() {
+        DispatchQueue.main.async {
+            self.loading.stopAnimating()
+            self.loading.isHidden = true
+        }
+    }
+    
+    private func handleStateChange() {
+        viewModel.didUpdateViewState = { [weak self] in
+            DispatchQueue.main.async {
+                if let details = self?.viewModel.repoDetails {
+                    self?.configure(with: details)
+                }
+                self?.reloadView()
+            }
+        }
+    }
+    
+    private func handlePushFromHome() {
+        guard let details = viewModel.repoDetails else { return }
+        
+        configure(with: details)
+        navigationItem.rightBarButtonItem = starBarButton
+    }
+    
+    private func starBarButtonInitialState() {
+        if repoIsFavorite() {
+            starBarButton.image = UIImage.init(systemName: "star.fill")
+        } else {
+            starBarButton.image = UIImage.init(systemName: "star")
+        }
+    }
+    
+    private func repoIsFavorite() -> Bool {
+        for repo in viewModel.favRepositories {
+            let apiId = self.viewModel.repoDetails?.id
+            let favId = repo.id
+            if favId == apiId {
+                return true
+            }
+        }
+        return false
+    }
+    
+    @objc
+    private func handleStarBarButton() {
+        let starSymbol = starBarButton.image!.sfSymbolName!
+        
+        if starSymbol == "star" {
+            starBarButton.image = UIImage.init(systemName: "star.fill")
+            if let repository = viewModel.repoDetails {
+                viewModel.addFavoriteRepo(repository)
+            }
+        } else {
+            starBarButton.image = UIImage.init(systemName: "star")
+            if let repoId = viewModel.repoDetails?.id {
+                viewModel.deleteFavoriteRepo(id: repoId.int64Value)
+            }
+        }
+        
+    }
+    
+    private func reloadView() {
+        tableView.reloadData()
+        
+        switch viewModel.state {
+        case .loading:
+            configureLoadingState()
+        case .done:
+            configureDoneState()
+        case .failure:
+            configureFailureState()
+        }
+    }
+    
+    private func configureLoadingState() {
+        showLoadingIndicator()
+        tableView.tableHeaderView = nil
+        navigationItem.rightBarButtonItem = nil
+        tableView.backgroundView = emptyMessageLabel
+    }
+    
+    private func configureDoneState() {
+        hideLoadingIndicator()
+        tableView.tableHeaderView = tableHeaderView
+        navigationItem.rightBarButtonItem = starBarButton
+        starBarButtonInitialState()
+        emptyMessageLabel.text = nil
+    }
+    
+    private func configureFailureState() {
+        emptyMessageLabel.text = "Error"
+        tableView.backgroundView = emptyMessageLabel
     }
     
     private func configure(with model: Repository) {
@@ -156,7 +307,6 @@ public class RepoDetailsViewController: FormViewController{
             }
         }
     }
-    
 }
 
 extension RepoDetailsViewController: FormDelegate {
@@ -165,39 +315,3 @@ extension RepoDetailsViewController: FormDelegate {
     }
 }
 
-#if DEBUG
-import SwiftUI
-import Core
-
-struct RepoDetailsViewControllerPreviews: PreviewProvider {
-    static var previews: some View {
-        if #available(iOS 14.0, *) {
-            ContainerPreview()
-                .ignoresSafeArea()
-        } else {
-            ContainerPreview()
-                .environment(\.colorScheme, .dark)
-        }
-    }
-    
-    struct ContainerPreview: UIViewControllerRepresentable {
-        typealias UIViewControllerType = UINavigationController
-        
-        func makeUIViewController(context: Context) -> UIViewControllerType {
-            let viewModel = RepoDetailsViewModel(
-                repository: Repository.debugRepositories[0]
-            )
-            
-            let viewController = RepoDetailsViewController(
-                viewModel: viewModel
-            )
-            
-            let navController = UINavigationController(rootViewController: viewController)
-            
-            return navController
-        }
-        
-        func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
-    }
-}
-#endif

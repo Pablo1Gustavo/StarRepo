@@ -48,8 +48,6 @@ public class FavoritesListViewController: UIViewController {
         configureNavigationBar()
         registerCells()
         
-        searchFavorites()
-        
         reloadView()
         viewModel.didUpdateViewState = { [weak self] in
             DispatchQueue.main.async {
@@ -62,6 +60,12 @@ public class FavoritesListViewController: UIViewController {
         super.loadView()
         
         configureTableView()
+    }
+    
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        searchFavorites()
     }
     
     // MARK: - Private methods
