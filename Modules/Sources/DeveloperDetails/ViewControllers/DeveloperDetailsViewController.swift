@@ -98,12 +98,6 @@ public class DeveloperDetailsViewController: FormViewController {
             print(error.localizedDescription)
         }
         
-//        do {
-//            phoneNumber =
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-        
         sections = [
             FormSection(
                 title: nil,
@@ -119,7 +113,10 @@ public class DeveloperDetailsViewController: FormViewController {
                     TitleDescriptionRow(
                         image: .init(systemName: "phone"),
                         title: "Phone number",
-                        description: phoneNumberString ?? "No phone number"
+                        description: phoneNumberString ?? "No phone number",
+                        action: { [weak self] in
+                            self?.call(to: phoneNumberString)
+                        }
                     ),
                     TitleDescriptionRow(
                         image: .init(systemName: "envelope"),
@@ -166,9 +163,17 @@ public class DeveloperDetailsViewController: FormViewController {
         ]
     }
     
-    private func call(to phoneNumber: String) {
-        if let url = URL(string: "tel://\(phoneNumber)"), UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    private func call(to phoneNumber: String?) {
+        if let phoneNumber = phoneNumber {
+            let str = phoneNumber.replacingOccurrences(of: "-", with: "").replacingOccurrences(of: " ", with: "")
+            
+            if let url = URL(string: "tel://\(str)"), UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                print("Cannot call")
+            }
+        } else {
+            print("Invalid phone number")
         }
     }
     
