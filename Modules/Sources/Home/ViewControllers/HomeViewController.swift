@@ -10,6 +10,8 @@ public class HomeViewController: UIViewController {
     
     public var didSelectRepository: (Repository) -> Void
     
+    private var loading = UIActivityIndicatorView(style: .large)
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.delegate = self
@@ -102,6 +104,21 @@ public class HomeViewController: UIViewController {
         navigationItem.hidesSearchBarWhenScrolling = false
     }
     
+    private func showLoadingIndicator() {
+        DispatchQueue.main.async {
+            self.loading.color = .systemBlue
+            self.loading.startAnimating()
+            self.loading.isHidden = false
+        }
+    }
+    
+    private func hideLoadingIndicator() {
+        DispatchQueue.main.async {
+            self.loading.stopAnimating()
+            self.loading.isHidden = true
+        }
+    }
+    
     private func configureSortButton() {
         if #available(iOS 14.0, *) {
             let handler: (_ action: UIAction) -> Void = { [weak self] action in
@@ -181,13 +198,13 @@ public class HomeViewController: UIViewController {
         
         switch viewModel.state {
         case .onboarding:
-            emptyMessageLabel.text = "Onboarding"
+            emptyMessageLabel.text = "⬆ Search for a language ⬆"
             tableView.backgroundView = emptyMessageLabel
         case .loading:
-            emptyMessageLabel.text = "Loading"
-            tableView.backgroundView = emptyMessageLabel
+            showLoadingIndicator()
+            tableView.backgroundView = loading
         case .done:
-            emptyMessageLabel.text = nil
+            hideLoadingIndicator()
             tableView.backgroundView = nil
         case .empty:
             emptyMessageLabel.text = "No repos"

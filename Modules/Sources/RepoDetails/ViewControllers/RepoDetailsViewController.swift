@@ -19,7 +19,6 @@ public class RepoDetailsViewController: FormViewController{
         imageView.backgroundColor = .systemGray5
         imageView.layer.cornerRadius = 60
         imageView.clipsToBounds = true
-        imageView.isSkeletonable = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
