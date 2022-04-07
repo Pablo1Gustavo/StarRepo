@@ -31,7 +31,9 @@ public class HomeViewController: UIViewController {
     
     private lazy var autocompleteSearchResultsController: AutocompleteSearchResultsViewController = {
         let controller = AutocompleteSearchResultsViewController(
-            viewModel: AutocompleteSearchResultsViewModel()
+            viewModel: AutocompleteSearchResultsViewModel(
+                autocompleteService: viewModel.automcompleteService
+            )
         )
         controller.delegate = self
         return controller
@@ -350,7 +352,8 @@ struct HomeViewControllerPreviews: PreviewProvider {
             let viewModel = HomeViewModel(
                 homeService: DummyHomeService(
                     state: state
-                )
+                ),
+                automcompleteService: DummyHomeAutomcompleteServiceProtocol()
             )
             
             let viewController = HomeViewController(
