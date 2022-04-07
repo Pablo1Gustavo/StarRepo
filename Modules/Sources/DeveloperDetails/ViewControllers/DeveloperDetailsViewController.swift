@@ -4,6 +4,7 @@ import Extensions
 import Kingfisher
 import MessageUI
 import PhoneNumberKit
+import SafariServices
 
 public class DeveloperDetailsViewController: FormViewController {
     
@@ -191,9 +192,10 @@ public class DeveloperDetailsViewController: FormViewController {
     
     private func performURL(for urlString: String) {
         if let url = URL(string: urlString) {
-            if UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
+            let config = SFSafariViewController.Configuration()
+            
+            let viewController = SFSafariViewController(url: url, configuration: config)
+            present(viewController, animated: true)
         }
     }
 
