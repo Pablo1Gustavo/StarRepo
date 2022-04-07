@@ -210,7 +210,12 @@ public class HomeViewController: UIViewController {
             emptyMessageLabel.text = "No repos"
             tableView.backgroundView = emptyMessageLabel
         case .failure:
-            emptyMessageLabel.text = "Error"
+            emptyMessageLabel.numberOfLines = 0
+            emptyMessageLabel.text = """
+Error
+
+Check your internet conection
+"""
             tableView.backgroundView = emptyMessageLabel
         }
     }
