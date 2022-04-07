@@ -98,12 +98,6 @@ public class DeveloperDetailsViewController: FormViewController {
             print(error.localizedDescription)
         }
         
-//        do {
-//            phoneNumber =
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-        
         sections = [
             FormSection(
                 title: nil,
