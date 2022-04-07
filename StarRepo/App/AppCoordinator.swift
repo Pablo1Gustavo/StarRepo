@@ -21,7 +21,7 @@ final class AppCoordinator: Coordinator {
             tag: 0
         )
         
-        let favoritesCoordinator = FavoritesCoordinator(rootViewController: UINavigationController())
+        let favoritesCoordinator = FavoritesCoordinator(rootViewController: UISplitViewController())
         favoritesCoordinator.start()
         
         favoritesCoordinator.rootViewController.tabBarItem = UITabBarItem(
