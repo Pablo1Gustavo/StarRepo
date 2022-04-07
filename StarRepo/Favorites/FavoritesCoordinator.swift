@@ -2,6 +2,7 @@ import UIKit
 import Favorites
 import FavoritesData
 import Core
+import RepoDetails
 
 final class FavoritesCoordinator: Coordinator {
     
@@ -28,8 +29,17 @@ final class FavoritesCoordinator: Coordinator {
     }
     
     func pushRepoDetailsViewController(repository: FavRepo) {
-        let viewController = UIViewController()
-        viewController.view.backgroundColor = .systemPink
+        let viewModel = RepoDetailsViewModel(
+            repoDetails: nil,
+            favReference: repository,
+            repoDetailsService: RepoDetailsService(),
+            fetchFavReposService: Persistence(),
+            addFavRepoService: Persistence(),
+            deleteFavRepoService: Persistence()
+        )
+        
+        let viewController = RepoDetailsViewController(viewModel: viewModel)
+        //viewController.view.backgroundColor = .systemPink
         rootViewController.pushViewController(viewController, animated: true)
     }
     

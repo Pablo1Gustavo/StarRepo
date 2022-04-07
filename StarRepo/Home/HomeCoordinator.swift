@@ -2,6 +2,7 @@ import UIKit
 import Home
 import Core
 import RepoDetails
+import FavoritesData
 
 final class HomeCoordinator: Coordinator {
     
@@ -30,7 +31,14 @@ final class HomeCoordinator: Coordinator {
     }
     
     func pushRepoDetailsViewController(repository: Repository) {
-        let viewModel = RepoDetailsViewModel(repository: repository)
+        let viewModel = RepoDetailsViewModel(
+            repoDetails: repository,
+            favReference: nil,
+            repoDetailsService: RepoDetailsService(),
+            fetchFavReposService: Persistence(),
+            addFavRepoService: Persistence(),
+            deleteFavRepoService: Persistence()
+        )
         let viewController = RepoDetailsViewController(viewModel: viewModel)
         rootViewController.pushViewController(viewController, animated: true)
     }
