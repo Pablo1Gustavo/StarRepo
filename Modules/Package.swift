@@ -90,7 +90,7 @@ let package = Package(
             dependencies: ["DeveloperDetails"]),
         .target(
             name: "SplitDetailView",
-            dependencies: []),
+            dependencies: ["Extensions"]),
         .testTarget(
             name: "SplitDetailViewTests",
             dependencies: ["SplitDetailView"]),
