@@ -218,7 +218,11 @@ public class RepoDetailsViewController: FormViewController{
     }
     
     private func configureFailureState() {
-        emptyMessageLabel.text = "Error"
+        emptyMessageLabel.text = """
+Error
+
+Check your internet conection
+"""
         tableView.backgroundView = emptyMessageLabel
     }
     
