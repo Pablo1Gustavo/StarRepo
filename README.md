@@ -1,9 +1,7 @@
 
 #  StarRepo
 
-<p align="center">
-  <img src="https://developer.apple.com/assets/elements/icons/swift/swift-64x64_2x.png" alt="Swift logo"/>
-</p>
+![StarRepoLogo-500px](https://user-images.githubusercontent.com/86199915/162093963-2badbefc-82d2-4d6f-bdb7-3991a4593a19.png)
 
 ## 🎯 Objetivo
 
