@@ -14,6 +14,7 @@ public extension HomeViewModel {
 public final class HomeViewModel {
     
     private var homeService: HomeServiceProtocol
+    private(set) var automcompleteService: HomeAutomcompleteServiceProtocol
     
     public var didUpdateViewState: (() -> Void)?
     private(set) var state: ViewState = .onboarding {
@@ -26,8 +27,12 @@ public final class HomeViewModel {
     
     private(set) var repositories: [Repository] = []
     
-    public init(homeService: HomeServiceProtocol) {
+    public init(
+        homeService: HomeServiceProtocol,
+        automcompleteService: HomeAutomcompleteServiceProtocol
+    ) {
         self.homeService = homeService
+        self.automcompleteService = automcompleteService
     }
     
     func fetchRepos(searchText: String?, sortMode: SortMode) {

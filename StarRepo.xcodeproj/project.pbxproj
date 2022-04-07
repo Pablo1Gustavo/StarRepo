@@ -29,6 +29,8 @@
 		4B5B7D7627E964B1009CF38D /* StarRepoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5B7D7527E964B1009CF38D /* StarRepoTests.swift */; };
 		4B5B7D8027E964B1009CF38D /* StarRepoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5B7D7F27E964B1009CF38D /* StarRepoUITests.swift */; };
 		4B5B7D8227E964B1009CF38D /* StarRepoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5B7D8127E964B1009CF38D /* StarRepoUITestsLaunchTests.swift */; };
+		4BA11F3C27FEFEC2009CB2D0 /* programming_languages.json in Resources */ = {isa = PBXBuildFile; fileRef = 4BA11F3B27FEFEC2009CB2D0 /* programming_languages.json */; };
+		4BA11F3E27FEFF3C009CB2D0 /* HomeAutocompleteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA11F3D27FEFF3C009CB2D0 /* HomeAutocompleteService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +77,8 @@
 		4B5B7D8127E964B1009CF38D /* StarRepoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRepoUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		4B5B7D8E27E96560009CF38D /* Modules */ = {isa = PBXFileReference; lastKnownFileType = text; path = Modules; sourceTree = SOURCE_ROOT; };
 		4B5B7D8F27E965EC009CF38D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		4BA11F3B27FEFEC2009CB2D0 /* programming_languages.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = programming_languages.json; sourceTree = "<group>"; };
+		4BA11F3D27FEFF3C009CB2D0 /* HomeAutocompleteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAutocompleteService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				4B4FD9B727F51CDB004DD6F6 /* HomeService.swift */,
+				4BA11F3D27FEFF3C009CB2D0 /* HomeAutocompleteService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -224,6 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				4B4FD9C827FA0C61004DD6F6 /* developers.json */,
+				4BA11F3B27FEFEC2009CB2D0 /* programming_languages.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -399,6 +405,7 @@
 				4B4FD9C927FA11B3004DD6F6 /* developers.json in Resources */,
 				4B5B7D6B27E964B1009CF38D /* LaunchScreen.storyboard in Resources */,
 				4B5B7D6827E964B1009CF38D /* Assets.xcassets in Resources */,
+				4BA11F3C27FEFEC2009CB2D0 /* programming_languages.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,6 +440,7 @@
 				4B5B7D5C27E964AF009CF38D /* AppDelegate.swift in Sources */,
 				4B5B7D5E27E964AF009CF38D /* SceneDelegate.swift in Sources */,
 				4B4FD9BD27F89FF8004DD6F6 /* HomeRequest.swift in Sources */,
+				4BA11F3E27FEFF3C009CB2D0 /* HomeAutocompleteService.swift in Sources */,
 				4B4FD9B827F51CDB004DD6F6 /* HomeService.swift in Sources */,
 				4B2BEA6E27EA081E00225B12 /* HomeCoordinator.swift in Sources */,
 				4B4FD9BB27F89BF1004DD6F6 /* Constants.swift in Sources */,

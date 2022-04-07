@@ -23,7 +23,8 @@ final class HomeCoordinator: Coordinator {
         // Master
         
         let viewModel = HomeViewModel(
-            homeService: HomeService()
+            homeService: HomeService(),
+            automcompleteService: HomeAutocompleteService()
         )
         
         let viewController = HomeViewController(
