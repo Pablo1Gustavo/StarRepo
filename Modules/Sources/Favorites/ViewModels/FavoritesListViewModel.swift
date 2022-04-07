@@ -25,13 +25,14 @@ public final class FavoritesListViewModel {
         }
     }
     
-    var favRepositories: [FavRepo] = []
+    private(set) var favRepositories: [FavRepo] = []
     
     public init(fetchService: FetchFavoriteReposProtocol, deleteService: DeleteFavoriteRepoProtocol) {
         self.fetchService = fetchService
         self.deleteService = deleteService
     }
     
+    ///Get an array of favorites repositories
     func fetchFavoriteRepos() {
         self.state = .loading
         

@@ -6,7 +6,9 @@ public final class NetworkManager {
     
     public func request<T: Decodable>(of type: T.Type = T.self, request: URLRequestProtocol, completion: @escaping (Result<T, Error>) -> Void) {
         if var baseURL = URLComponents(string: request.baseURL) {
-            baseURL.query = request.path
+            if let path = request.path {
+                baseURL.query = path
+            }
             
             guard let url = baseURL.url else { return }
             

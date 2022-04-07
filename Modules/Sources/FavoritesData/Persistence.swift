@@ -45,14 +45,14 @@ extension Persistence: FetchFavoriteReposProtocol {
 
 extension Persistence: AddFavoriteRepoProtocol {
     
-    public func addFavoriteRepo(id: Int, name: String, desc: String, imageURL: String) {
+    public func addFavoriteRepo(id: NSNumber, name: String, desc: String, imageURL: String) {
         let context = container.viewContext
         
         let favRepo = FavRepo(context: context)
         
         favRepo.name = name
         favRepo.desc = desc
-        favRepo.id = NSNumber(value: id)
+        favRepo.id = id
         favRepo.imageURL = imageURL
         
         saveData { result in
