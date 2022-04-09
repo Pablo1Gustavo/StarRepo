@@ -3,7 +3,7 @@
 
 
 <div align="center">
-  <img src="https://user-images.githubusercontent.com/86199915/162592438-36f858e6-be96-4210-8c13-5238750e87d2.gif" alt="App Launch Screen" style="width:15em;margin-left:2em;"/>
+  <img src="https://user-images.githubusercontent.com/86199915/162592438-36f858e6-be96-4210-8c13-5238750e87d2.gif" alt="App Launch Screen" style="width:15em;"/>
 </div>
 
 ## 🎯 Objetivo
