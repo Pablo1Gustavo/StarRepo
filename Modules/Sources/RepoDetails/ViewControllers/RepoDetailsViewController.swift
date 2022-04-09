@@ -73,8 +73,6 @@ public class RepoDetailsViewController: FormViewController{
         reloadView()
         
         handleStateChange()
-        
-        handlePushFromHome()
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -144,13 +142,6 @@ public class RepoDetailsViewController: FormViewController{
                 self?.reloadView()
             }
         }
-    }
-    
-    private func handlePushFromHome() {
-        guard let details = viewModel.repoDetails else { return }
-        
-        configure(with: details)
-        navigationItem.rightBarButtonItem = starBarButton
     }
     
     private func starBarButtonInitialState() {
