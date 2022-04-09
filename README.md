@@ -1,9 +1,10 @@
 
-#  StarRepo
+# <img src="https://user-images.githubusercontent.com/86199915/162592533-b49c0d3d-4d64-426e-81b4-b7c742c4d582.png" alt="App Launch Screen" style="width:40px;"> StarRepo
 
-<p align="center">
-  <img src="https://developer.apple.com/assets/elements/icons/swift/swift-64x64_2x.png" alt="Swift logo"/>
-</p>
+
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/86199915/162592438-36f858e6-be96-4210-8c13-5238750e87d2.gif" alt="App Launch Screen" style="width:15em;margin-left:2em;"/>
+</div>
 
 ## 🎯 Objetivo
 
@@ -18,6 +19,9 @@ Foi proposto também que o desenvolvimento das telas fosse feito conforme descri
 * Consumo de API
 * Coordinator Pattern
 * Swift Package Manager
+* Arquitetura MVVM
+* [Kingfisher](https://github.com/onevcat/Kingfisher.git)
+* [PhonNumberKit](https://github.com/marmelroy/PhoneNumberKit)
 
 ## 📘 Créditos
 Este projeto foi feito em equipe por:
