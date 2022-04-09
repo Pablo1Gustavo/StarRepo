@@ -1,7 +1,8 @@
+# Created by https://www.toptal.com/developers/gitignore/api/swift,xcode,swiftpackagemanager
+# Edit at https://www.toptal.com/developers/gitignore?templates=swift,xcode,swiftpackagemanager
+
 ## User settings
 xcuserdata/
-
-.DS_Store
 
 ## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
 *.xcscmblueprint
@@ -79,6 +80,12 @@ fastlane/test_output
 
 iOSInjectionProject/
 
+### SwiftPackageManager ###
+Packages
+xcuserdata
+*.xcodeproj
+
+
 ### Xcode ###
 
 ## Xcode 8 and earlier
@@ -90,3 +97,5 @@ iOSInjectionProject/
 !*.xcworkspace/contents.xcworkspacedata
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
+
+# End of https://www.toptal.com/developers/gitignore/api/swift,xcode,swiftpackagemanager
