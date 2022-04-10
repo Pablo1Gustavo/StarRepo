@@ -20,6 +20,7 @@ Foi proposto também que o desenvolvimento das telas fosse feito conforme descri
 * Coordinator Pattern
 * Swift Package Manager
 * Arquitetura MVVM
+* Apple Design Guidelines
 * [Kingfisher](https://github.com/onevcat/Kingfisher.git)
 * [PhonNumberKit](https://github.com/marmelroy/PhoneNumberKit)
 
