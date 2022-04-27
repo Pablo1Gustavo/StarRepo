@@ -1,5 +1,6 @@
 import Foundation
 import Networking
+import Alamofire
 import Home
 
 struct HomeRequest: URLRequestProtocol {
@@ -16,8 +17,12 @@ struct HomeRequest: URLRequestProtocol {
         return "\(Constants.githubBaseURL)search/repositories"
     }
     
-    var path: String? {
-        return "q=language:\(self.language)&sort=stars&order=\(sortMode.rawValue)"
+    var params: [String: String]? {
+        return [
+            "q": "language:\(self.language)",
+            "sort": "stars",
+            "order": sortMode.rawValue
+        ]
     }
     
     var method: HTTPMethod {

@@ -1,5 +1,6 @@
 import Foundation
 import Networking
+import Alamofire
 
 struct RepoDetailsRequest: URLRequestProtocol {
     
@@ -13,7 +14,7 @@ struct RepoDetailsRequest: URLRequestProtocol {
         return "\(Constants.githubBaseURL)repositories/\(self.id)"
     }
     
-    var path: String? {
+    var params: [String: String]? {
         return nil
     }
     
