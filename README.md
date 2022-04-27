@@ -22,7 +22,7 @@ Foi proposto também que o desenvolvimento das telas fosse feito conforme descri
 * Arquitetura MVVM
 * Apple Design Guidelines
 * [Kingfisher](https://github.com/onevcat/Kingfisher.git)
-* [Alamofire])(https://github.com/Alamofire/Alamofire)
+* [Alamofire](https://github.com/Alamofire/Alamofire)
 * [PhonNumberKit](https://github.com/marmelroy/PhoneNumberKit)
 
 ## 📘 Créditos
