@@ -1,14 +1,15 @@
 import Foundation
+import Alamofire
 
 public protocol URLRequestProtocol {
     
-    /// The API's base url
+    /// The endpoint url from API
     var baseURL: String { get }
     
-    /// Defines the endpoint we want to hit
-    var path: String? { get }
+    /// Defines the request params
+    var params: [String: String]? { get }
     
-    /// Relative to the method we want to call, that was defined with an enum above
+    /// Relative to the method we want to call, that is part of Alamofire implementation
     var method: HTTPMethod { get }
     
 }
